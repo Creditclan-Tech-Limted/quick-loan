@@ -2,7 +2,6 @@
 import React, { useEffect, useRef } from 'react';
 import Button from './global/Button';
 
-const CreditClan = window.CreditClan;
 
 const SecondHere = ({ referral_code }) => {
   const widget = useRef(null);
@@ -16,6 +15,8 @@ const SecondHere = ({ referral_code }) => {
   };
 
   useEffect(() => {
+    const CreditClan = window.CreditClan;
+    console.log({ CreditClan });
     widget.current = CreditClan?.init('2pXrz4qbDmTRH7ruHxwlY3Jy1N03Db80zCu6AXZG5stOQFwgEN9K5MI1a7joyTBq', {
       class: 'ccopen',
       ref: referral_code
@@ -34,7 +35,7 @@ const SecondHere = ({ referral_code }) => {
             Get up to <span className='text-yellow-500'> 5 Million</span> Loan in less than 3 minutes
           </div>
           <div className="flex my-10">
-            <Button className='mx-5 md:mx-auto' variant='filled' color='white' size='xl' onClick={ handleOpenWidget }>
+            <Button className='mx-5 md:mx-auto' variant='filled' color='white' size='xl' onClick={handleOpenWidget}>
               Get started
             </Button>
           </div>
