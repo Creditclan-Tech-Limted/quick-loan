@@ -3,6 +3,7 @@ import React, { useEffect, useRef } from 'react'
 import Button from './global/Button';
 
 const SecondHere = ({ referral_code }) => {
+  console.log({ referral_code });
   const widget = useRef();
 
   const handleOpenWidget = async () => {
@@ -19,8 +20,8 @@ const SecondHere = ({ referral_code }) => {
   }, [])
   return (
     <>
-      <div class="h-screen w-full py-6 rounded-lg shadow pb-0 relative flex flex-col">
-        <div class="bg-responsiveHero bg-cover absolute inset-0 h- w-full"></div>
+      <div className="h-screen w-full py-6 rounded-lg shadow pb-0 relative flex flex-col">
+        <div className="bg-responsiveHero bg-cover absolute inset-0 h- w-full"></div>
         <div className="container max-w-7xl mx-auto z-10 relative pl-5 md:pl-[40px]">
           <img src="https://clan.africa/images/clan-light.png" alt="" className='w-24 z-10' />
         </div>
