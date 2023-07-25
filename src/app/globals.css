@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-body{
-    @apply bg-gray-900 min-h-screen;
+body {
+    /* @apply bg-gray-900 min-h-screen; */
+}
+
+.bg-responsiveHero {
+    background-image: linear-gradient(rgba(38, 25, 51, .6), rgba(25, 25, 51, .6)), url('/assets/images/loan5.jpg');
 }
