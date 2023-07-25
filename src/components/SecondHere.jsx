@@ -1,7 +1,6 @@
 'use client';
 import React, { useEffect, useRef } from 'react';
-import Button from './global/Button';
-
+import Button from '@/components/global/Button';
 
 const SecondHere = ({ referral_code }) => {
   const widget = useRef(null);
@@ -21,7 +20,7 @@ const SecondHere = ({ referral_code }) => {
       class: 'ccopen',
       ref: referral_code
     });
-  }, []);
+  }, [referral_code]);
 
   return (
     <>
