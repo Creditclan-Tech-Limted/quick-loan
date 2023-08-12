@@ -66,7 +66,7 @@ const classes = {
   },
   black: {
     filled: 'bg-gray-800 hover:bg-gray-900 text-white focus:ring-4 focus:ring-gray-200',
-    outlined: 'border border-gray-300 text-gray-800 hover:bg-gray-100 focus:ring-4 focus:ring-gray-200',
+    outlined: 'border border-gray-400 text-gray-800 hover:bg-gray-100 focus:ring-4 focus:ring-gray-200',
     subtle: 'bg-gray-600 bg-opacity-10 text-gray-800 hover:bg-opacity-20',
     text: 'bg-gray-600 bg-opacity-0 text-gray-800 hover:bg-opacity-10',
     loader: {
