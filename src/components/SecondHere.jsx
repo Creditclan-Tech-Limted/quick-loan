@@ -47,7 +47,7 @@ const SecondHere = ({ referral_code }) => {
               Get CASH
             </h2>
             <p className="mt-4 text-[.95rem]">
-              Lorem ipsum dolor sit, amet sequi ab quis consectetur animi voluptates aut. Doloremque quam possimus maiores porro enim est!
+              Experience a new level of convenience. Our streamlined process ensures swift access to funds, requiring minimal documentation. Unlock a range from 100k to 1 million naira.
             </p>
             <Button className="mt-8" variant="outlined" color='black' onClick={handleOpenWidget}>
               Get started
@@ -63,7 +63,7 @@ const SecondHere = ({ referral_code }) => {
               Shop
             </h2>
             <p className="mt-4 text-[.95rem]">
-            Lorem ipsum dolor sit, amet sequi ab quis consectetur animi voluptates aut. Doloremque quam possimus maiores porro enim est!
+              With a curated selection sourced from our network of 10,000 trusted merchants, you can find the perfect product that suits your needs and style.
             </p>
             <Button className="mt-8" variant="outlined" color='black'>
               <a href="https://shop.clan.africa" target='_blank'>
@@ -81,7 +81,7 @@ const SecondHere = ({ referral_code }) => {
               Light
             </h2>
             <p className="mt-4 text-[.95rem]">
-            Lorem ipsum dolor sit, amet sequi ab quis consectetur animi voluptates aut. Doloremque quam possimus maiores porro enim est!
+              Empower your home or business with a reliable inverter. Choose Light Now and step into a world of continuous energy supply!
             </p>
             <Button className="mt-8" variant="outlined" color='black'>
               <a href="https://power.clan.africa" target='_blank'>
