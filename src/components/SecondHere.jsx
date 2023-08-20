@@ -1,31 +1,24 @@
-'use client';
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import Button from '@/components/global/Button';
-import { IconCash, IconPlus, IconShoppingCart, IconSolarPanel } from '@tabler/icons-react';
-import ClientOnly from './ClientOnly';
-import LaunchEligibilityWidget from './LaunchEligibilityWidget';
+import { IconCash, IconShoppingCart, IconSolarPanel } from '@tabler/icons-react';
 import Drawer from './global/Drawer';
 import { useForm } from 'react-hook-form';
 import Input from './global/Input';
 import useEligibility from '@/hooks/use-eligibility';
 
 const SecondHere = ({ referral_code }) => {
-  const widget = useRef(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [openDrawer, setOpenDrawer] = useState(false);
-  const [request, setRequest] = useState({})
-  const { register, handleSubmit, reset, formState: { errors }, watch } = useForm();
-  const { launch: launchAnalyse } = useEligibility({
+  const { register, handleSubmit, formState: { errors }, watch } = useForm();
+  const { launch } = useEligibility({
     data: {
       intro: "Happy to check eligibility for your ride",
       banner: "https://i.ibb.co/F3HsSx0/eligibility-banner.jpg",
-      // extra: {
-      //   ride_id: data.ride_data.id
-      // },
+      referral_code,
       request: {
         amount: watch().amount,
         tenor: 11,
         tenor_type: 2,
-        // product_id: "30003",
         product_id: "29822 ",
       },
       profile: {
@@ -37,33 +30,35 @@ const SecondHere = ({ referral_code }) => {
       },
       config: {
         show_bank_account: true,
-        platform: "ride",
         show_address: true,
         show_income: true,
         analyze_bank_statement: true,
         show_offers: true,
         show_signature: true,
         tokenize_card: true,
+        verify_work_email: true,
+        show_attachments: true,
+        attachments_list: ['Utility bill'],
+        show_address: true,
+        show_offers: false,
       },
     },
     onReady: () => {
-      setLoading("false");
+      setIsLoading(false);
     },
     onCompleted: (data) => {
       console.log({ data });
-      // handleEligibilityCompleted({ plan_amount: data.plans[0].plan_amount, request_id: data.request_id });
     },
   });
 
   const onSubmit = async (data) => {
     try {
-      setRequest(data)
-      launchAnalyse()
-      // console.log({ data, request });
+      setIsLoading(true);
+      launch();
     } catch (error) {
       console.log({ error });
     }
-  }
+  };
 
   return (
     <>
@@ -102,7 +97,7 @@ const SecondHere = ({ referral_code }) => {
               <p>▪️ Valid Utility bill (home address)</p>
               <p>▪️ Six (6) months bank statement</p>
             </div>
-            <Button className="mt-8" variant="outlined" color='black' onClick={() => setOpenDrawer(true)}>
+            <Button className="mt-8" variant="outlined" color='black' onClick={ () => setOpenDrawer(true) }>
               Get started
             </Button>
           </div>
@@ -146,37 +141,37 @@ const SecondHere = ({ referral_code }) => {
       </div >
 
       <>
-        <Drawer isOpen={openDrawer} onClose={() => setOpenDrawer(false)} title='Request Detials'>
-          <form onSubmit={handleSubmit(onSubmit)} className='space-y-8'>
-            <Input label='Full Name' bordered {...register('name', {
+        <Drawer isOpen={ openDrawer } onClose={ () => setOpenDrawer(false) } title='Request Detials'>
+          <form onSubmit={ handleSubmit(onSubmit) } className='space-y-8'>
+            <Input label='Full Name' bordered { ...register('name', {
               required: {
                 value: true,
                 message: 'Full Name is required'
               }
-            })} error={errors?.name?.message} />
+            }) } error={ errors?.name?.message } />
 
-            <Input type='number' label='Phone' bordered {...register('phone', {
+            <Input type='number' label='Phone' bordered { ...register('phone', {
               required: {
                 value: true,
                 message: ' Phone is required'
               }
-            })} error={errors?.phone?.message} />
+            }) } error={ errors?.phone?.message } />
 
-            <Input type='email' label=' Email' bordered {...register('email', {
+            <Input type='email' label=' Email' bordered { ...register('email', {
               required: {
                 value: true,
                 message: ' Email is required'
               }
-            })} error={errors?.email?.message} />
+            }) } error={ errors?.email?.message } />
 
-            <Input type='number' label='Amount' bordered {...register('amount', {
+            <Input type='number' label='Amount' bordered { ...register('amount', {
               required: {
                 value: true,
                 message: ' Amount is required'
               }
-            })} error={errors?.amount?.message} />
+            }) } error={ errors?.amount?.message } />
 
-            <Button type='submit' className='mt-10 text-white' leftIcon={<IconPlus />} >Add New Staff</Button>
+            <Button type='submit' loading={ isLoading } className='mt-10 text-white'>Continue</Button>
           </form>
         </Drawer>
       </>
