@@ -18,7 +18,7 @@ class MyDocument extends Document {
           <Main />
           <NextScript />
           <a href="#" id="creditclan-widget" className='hidden'>Apply on CreditClan</a>
-          <Script src="https://appfive.creditclan.com/boot/client.js" strategy="beforeInteractive" />
+          <Script src="https://eligibility.clan.africa/assets/scripts/client.js" strategy="beforeInteractive" />
         </body>
       </Html>
     );

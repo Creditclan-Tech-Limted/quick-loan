@@ -29,15 +29,15 @@ const classes = {
     }
   },
   primary: {
-    filled: 'bg-primary-500 hover:bg-primary-600 text-black focus:ring-4 focus:ring-primary-500 focus:ring-opacity-20',
-    outlined: 'border border-primary-600 text-primary-600 hover:bg-primary-600 hover:text-white focus:ring-4 focus:ring-primary-600 focus:ring-opacity-20',
-    subtle: 'bg-primary-600 bg-opacity-10 text-primary-600 hover:bg-opacity-20',
-    text: 'bg-primary-600 bg-opacity-0 text-primary-600 hover:bg-opacity-10',
+    filled: 'bg-blue-500 hover:bg-blue-600 text-black focus:ring-4 focus:ring-blue-500 focus:ring-opacity-20',
+    outlined: 'border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white focus:ring-4 focus:ring-blue-600 focus:ring-opacity-20',
+    subtle: 'bg-blue-600 bg-opacity-10 text-blue-600 hover:bg-opacity-20',
+    text: 'bg-blue-600 bg-opacity-0 text-blue-600 hover:bg-opacity-10',
     loader: {
       filled: 'bg-white',
-      outlined: 'bg-primary-600',
-      text: 'bg-primary-600',
-      subtle: 'bg-primary-600',
+      outlined: 'bg-blue-600',
+      text: 'bg-blue-600',
+      subtle: 'bg-blue-600',
     }
   },
   accent: {
