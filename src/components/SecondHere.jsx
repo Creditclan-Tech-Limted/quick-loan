@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Button from '@/components/global/Button';
-import { IconCash, IconShoppingCart, IconSolarPanel } from '@tabler/icons-react';
+import { IconCash, IconCheck, IconChecks, IconCircleCheck, IconShoppingCart, IconSolarPanel } from '@tabler/icons-react';
 import Drawer from './global/Drawer';
 import { useForm } from 'react-hook-form';
 import Input from './global/Input';
@@ -10,6 +10,7 @@ const SecondHere = ({ referral_code }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [openDrawer, setOpenDrawer] = useState(false);
   const { register, handleSubmit, formState: { errors }, watch } = useForm();
+  const [views, setViews] = useState('request_details')
   const { launch } = useEligibility({
     data: {
       banner: "https://i.ibb.co/F3HsSx0/eligibility-banner.jpg",
@@ -46,6 +47,7 @@ const SecondHere = ({ referral_code }) => {
       setIsLoading(false);
     },
     onCompleted: (data) => {
+      setViews('success')
       console.log({ data });
     },
   });
@@ -96,7 +98,7 @@ const SecondHere = ({ referral_code }) => {
               <p>▪️ Valid Utility bill (home address)</p>
               <p>▪️ Six (6) months bank statement</p>
             </div>
-            <Button className="mt-8" variant="outlined" color='black' onClick={ () => setOpenDrawer(true) }>
+            <Button className="mt-8" variant="outlined" color='black' onClick={() => setOpenDrawer(true)}>
               Get started
             </Button>
           </div>
@@ -140,45 +142,61 @@ const SecondHere = ({ referral_code }) => {
       </div >
 
       <>
-        <Drawer isOpen={ openDrawer } onClose={ () => setOpenDrawer(false) } title='Request Detials'>
-          <form onSubmit={ handleSubmit(onSubmit) } className='space-y-8'>
-            <Input label='Full Name' bordered { ...register('name', {
-              required: {
-                value: true,
-                message: 'Full Name is required'
-              }
-            }) } error={ errors?.name?.message } />
+        <Drawer isOpen={openDrawer} onClose={() => setOpenDrawer(false)} title='Request Detials'>
+          {views === 'request_details' && (
+            <form onSubmit={handleSubmit(onSubmit)} className='space-y-8'>
+              <Input label='Full Name' bordered {...register('name', {
+                required: {
+                  value: true,
+                  message: 'Full Name is required'
+                }
+              })} error={errors?.name?.message} />
 
-            <Input type='number' label='Phone' bordered { ...register('phone', {
-              required: {
-                value: true,
-                message: ' Phone is required'
-              }
-            }) } error={ errors?.phone?.message } />
+              <Input type='number' label='Phone' bordered {...register('phone', {
+                required: {
+                  value: true,
+                  message: ' Phone is required'
+                }
+              })} error={errors?.phone?.message} />
 
-            <Input type='email' label=' Email' bordered { ...register('email', {
-              required: {
-                value: true,
-                message: ' Email is required'
-              }
-            }) } error={ errors?.email?.message } />
+              <Input type='email' label=' Email' bordered {...register('email', {
+                required: {
+                  value: true,
+                  message: ' Email is required'
+                }
+              })} error={errors?.email?.message} />
 
-            <Input type='number' label='Amount' bordered { ...register('amount', {
-              required: {
-                value: true,
-                message: ' Amount is required'
-              }
-            }) } error={ errors?.amount?.message } />
+              <Input type='number' label='Amount' bordered {...register('amount', {
+                required: {
+                  value: true,
+                  message: ' Amount is required'
+                }
+              })} error={errors?.amount?.message} />
 
-            <Input type='number' label='Duration' bordered { ...register('duration', {
-              required: {
-                value: true,
-                message: ' Duration is required'
-              }
-            }) } error={ errors?.duration?.message } />
+              <Input type='number' label='Duration' bordered {...register('duration', {
+                required: {
+                  value: true,
+                  message: ' Duration is required'
+                }
+              })} error={errors?.duration?.message} />
 
-            <Button type='submit' loading={ isLoading } className='mt-10 text-white'>Continue</Button>
-          </form>
+              <Button type='submit' loading={isLoading} className='mt-10 text-white'>Continue</Button>
+            </form>
+          )}
+
+          {views === 'success' && (
+            <>
+              <div className="pt-42">
+                <img src="/assets/images/Young and happy-bro.svg" alt="" />
+                {/* <IconCheck color='green' size={300} /> */}
+                <p className="text-4xl font-bold text-center">
+                  Congratulations, <br /> We are good to go
+                </p>
+              </div>
+              <Button className='text-white mt-5' onClick={() => setOpenDrawer(false)} >Close</Button>
+            </>
+          )}
+
         </Drawer>
       </>
     </>
