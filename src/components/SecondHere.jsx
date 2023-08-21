@@ -12,7 +12,6 @@ const SecondHere = ({ referral_code }) => {
   const { register, handleSubmit, formState: { errors }, watch } = useForm();
   const { launch } = useEligibility({
     data: {
-      intro: "Happy to check eligibility for your ride",
       banner: "https://i.ibb.co/F3HsSx0/eligibility-banner.jpg",
       referral_code,
       request: {
@@ -91,7 +90,7 @@ const SecondHere = ({ referral_code }) => {
               <p>Requirements</p>
               <p>▪️ BVN</p>
               <p>▪️ Bio Information </p>
-              <p>▪️ Valid Work Id's</p>
+              <p>▪️ Valid Work Ids</p>
               <p>▪️ Next of Kin Details</p>
               <p>▪️ Valid Work Email (not gmail or yahoo)</p>
               <p>▪️ Valid Utility bill (home address)</p>
@@ -170,6 +169,13 @@ const SecondHere = ({ referral_code }) => {
                 message: ' Amount is required'
               }
             }) } error={ errors?.amount?.message } />
+
+            <Input type='number' label='Duration' bordered { ...register('duration', {
+              required: {
+                value: true,
+                message: ' Duration is required'
+              }
+            }) } error={ errors?.duration?.message } />
 
             <Button type='submit' loading={ isLoading } className='mt-10 text-white'>Continue</Button>
           </form>
