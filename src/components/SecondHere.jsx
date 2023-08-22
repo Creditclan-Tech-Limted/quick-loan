@@ -26,7 +26,7 @@ const durations = [
 const SecondHere = ({ referral_code }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [openDrawer, setOpenDrawer] = useState(false);
-  const [request, setRequest] = useState({ })
+  const [request, setRequest] = useState({})
   const { register, handleSubmit, formState: { errors }, watch } = useForm();
   const [views, setViews] = useState('request_details')
   const { launch } = useEligibility({
@@ -87,7 +87,7 @@ const SecondHere = ({ referral_code }) => {
       const res = await axios.post(`https://sellbackend.creditclan.com/merchantclan/public/index.php/api/personal/loan`, { name: watch().name, amount: watch().amount, duration: watch().duration, email: watch().email, phone: watch().phone });
 
       console.log(res?.data?.data);
-      setRequest(res?.data?.data);
+      setRequest(res?.data?.data?.request);
     } catch (error) {
       console.log(error);
     }
