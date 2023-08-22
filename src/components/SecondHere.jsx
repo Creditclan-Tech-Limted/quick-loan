@@ -1,14 +1,32 @@
 import { useState } from 'react';
 import Button from '@/components/global/Button';
-import { IconCash, IconCheck, IconChecks, IconCircleCheck, IconShoppingCart, IconSolarPanel } from '@tabler/icons-react';
+import { IconCash, IconShoppingCart, IconSolarPanel } from '@tabler/icons-react';
 import Drawer from './global/Drawer';
 import { useForm } from 'react-hook-form';
 import Input from './global/Input';
 import useEligibility from '@/hooks/use-eligibility';
+import axios from 'axios';
+import Select from './global/Select';
+
+const durations = [
+  { text: '1 Month', value: 1 },
+  { text: '2 Month', value: 2 },
+  { text: '3 Month', value: 3 },
+  { text: '4 Month', value: 4 },
+  { text: '5 Month', value: 5 },
+  { text: '6 Month', value: 6 },
+  { text: '7 Month', value: 7 },
+  { text: '8 Month', value: 8 },
+  { text: '9 Month', value: 9 },
+  { text: '10 Month', value: 10 },
+  { text: '11 Month', value: 11 },
+  { text: '12 Month', value: 12 }
+]
 
 const SecondHere = ({ referral_code }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [openDrawer, setOpenDrawer] = useState(false);
+  const [request, setRequest] = useState({ })
   const { register, handleSubmit, formState: { errors }, watch } = useForm();
   const [views, setViews] = useState('request_details')
   const { launch } = useEligibility({
@@ -17,7 +35,7 @@ const SecondHere = ({ referral_code }) => {
       referral_code,
       request: {
         amount: watch().amount,
-        tenor: 11,
+        tenor: watch().duration,
         tenor_type: 2,
         product_id: "29822 ",
       },
@@ -47,19 +65,33 @@ const SecondHere = ({ referral_code }) => {
       setIsLoading(false);
     },
     onCompleted: (data) => {
+      axios.post(`https://sellbackend.creditclan.com/merchantclan/public/index.php/api/personal/loans/${request?.id}/offer`, { creditclan_request_id: data?.request_id, offer: watch().amount });
       setViews('success')
-      console.log({ data });
+      // console.log({ data });
     },
   });
 
   const onSubmit = async (data) => {
+    console.log(data);
     try {
       setIsLoading(true);
+      await saveLoan();
       launch();
     } catch (error) {
       console.log({ error });
     }
   };
+
+  const saveLoan = async () => {
+    try {
+      const res = await axios.post(`https://sellbackend.creditclan.com/merchantclan/public/index.php/api/personal/loan`, { name: watch().name, amount: watch().amount, duration: watch().duration, email: watch().email, phone: watch().phone });
+
+      console.log(res?.data?.data);
+      setRequest(res?.data?.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <>
@@ -74,7 +106,7 @@ const SecondHere = ({ referral_code }) => {
           </div>
         </div>
       </div>
-      <div className="bg-gray-100 py-16 md:py-28 px-10 md:px-0">
+      <div className="bg-gray-100 py-16 md:py-28 px-5 md:px-0">
         <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-10">
           <div className="px-12 py-16 shadow-lg rounded-3xl relative bg-white">
             <div className="flex mb-8">
@@ -88,7 +120,7 @@ const SecondHere = ({ referral_code }) => {
             <p className="my-4 text-[.95rem]">
               Experience a new level of convenience. Our streamlined process ensures swift access to funds, requiring minimal documentation. Unlock a range from 100k to 1 million naira.
             </p>
-            <div className='space-y-2'>
+            {/* <div className='space-y-2'>
               <p>Requirements</p>
               <p>▪️ BVN</p>
               <p>▪️ Bio Information </p>
@@ -97,7 +129,7 @@ const SecondHere = ({ referral_code }) => {
               <p>▪️ Valid Work Email (not gmail or yahoo)</p>
               <p>▪️ Valid Utility bill (home address)</p>
               <p>▪️ Six (6) months bank statement</p>
-            </div>
+            </div> */}
             <Button className="mt-8" variant="outlined" color='black' onClick={() => setOpenDrawer(true)}>
               Get started
             </Button>
@@ -173,12 +205,20 @@ const SecondHere = ({ referral_code }) => {
                 }
               })} error={errors?.amount?.message} />
 
-              <Input type='number' label='Duration' bordered {...register('duration', {
+              {/* <Input type='number' label='Duration' bordered {...register('duration', {
                 required: {
                   value: true,
                   message: ' Duration is required'
                 }
-              })} error={errors?.duration?.message} />
+              })} error={errors?.duration?.message} /> */}
+
+              <Select label='Durations' options={durations} {...register('duration', {
+                required: {
+                  value: true,
+                  message: 'Duration is required',
+                },
+              })}
+                error={errors?.duration?.message} />
 
               <Button type='submit' loading={isLoading} className='mt-10 text-white'>Continue</Button>
             </form>
