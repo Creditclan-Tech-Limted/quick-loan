@@ -28,7 +28,7 @@ const SecondHere = ({ referral_code }) => {
   const [openDrawer, setOpenDrawer] = useState(false);
   const [request, setRequest] = useState({})
   const { register, handleSubmit, formState: { errors }, watch } = useForm();
-  const [views, setViews] = useState('request_details')
+  const [views, setViews] = useState('requirements')
   const { launch } = useEligibility({
     data: {
       banner: "https://i.ibb.co/F3HsSx0/eligibility-banner.jpg",
@@ -76,7 +76,7 @@ const SecondHere = ({ referral_code }) => {
     try {
       setIsLoading(true);
       await saveLoan();
-      launch();
+      // launch();
     } catch (error) {
       console.log({ error });
     }
@@ -86,7 +86,12 @@ const SecondHere = ({ referral_code }) => {
     try {
       const res = await axios.post(`https://sellbackend.creditclan.com/merchantclan/public/index.php/api/personal/loan`, { name: watch().name, amount: watch().amount, duration: watch().duration, email: watch().email, phone: watch().phone });
 
-      console.log(res?.data?.data);
+      console.log(res.data.data);
+      if (!res?.data?.status) {
+        setViews('request_exist');
+        setRequest(res?.data?.data);
+        return
+      }
       setRequest(res?.data?.data?.request);
     } catch (error) {
       console.log(error);
@@ -120,16 +125,6 @@ const SecondHere = ({ referral_code }) => {
             <p className="my-4 text-[.95rem]">
               Experience a new level of convenience. Our streamlined process ensures swift access to funds, requiring minimal documentation. Unlock a range from 100k to 1 million naira.
             </p>
-            {/* <div className='space-y-2'>
-              <p>Requirements</p>
-              <p>▪️ BVN</p>
-              <p>▪️ Bio Information </p>
-              <p>▪️ Valid Work Ids</p>
-              <p>▪️ Next of Kin Details</p>
-              <p>▪️ Valid Work Email (not gmail or yahoo)</p>
-              <p>▪️ Valid Utility bill (home address)</p>
-              <p>▪️ Six (6) months bank statement</p>
-            </div> */}
             <Button className="mt-8" variant="outlined" color='black' onClick={() => setOpenDrawer(true)}>
               Get started
             </Button>
@@ -171,10 +166,44 @@ const SecondHere = ({ referral_code }) => {
             </Button>
           </div>
         </div>
-      </div >
+      </div>
 
       <>
         <Drawer isOpen={openDrawer} onClose={() => setOpenDrawer(false)} title='Request Detials'>
+          {views === 'requirements' && (
+            <>
+              <div className='space-y-2'>
+                <p className='text-2xl font-semibold'>Loan Requirements</p>
+                <p className='!mt-5'>▪️ BVN</p>
+                <p>▪️ Bio Information </p>
+                <p>▪️ Valid Work Ids</p>
+                <p>▪️ Next of Kin Details</p>
+                <p>▪️ Valid Work Email (not gmail or yahoo)</p>
+                <p>▪️ Valid Utility bill (home address)</p>
+                <p>▪️ Six (6) months bank statement</p>
+              </div>
+              <Button className='text-white mt-16' onClick={() => setViews('request_details')}> Continue </Button>
+            </>
+          )}
+
+          {views === 'request_exist' && (
+            <>
+              <p className='text-xl font-bold'>Request Already Exist</p>
+              <div className='border border-black space-y-3 p-3 rounded mt-5'>
+                <p>Name: </p>
+                <p>Email: </p>
+                <p>Phone: </p>
+                <p>Amount: </p>
+                <p>Duration: </p>
+              </div>
+
+              <div className='grid grid-cols-2 mt-5 gap-4'>
+                <Button>Continue</Button>
+                <Button color='red' variant='outlined'>Cancel</Button>
+              </div>
+            </>
+          )}
+
           {views === 'request_details' && (
             <form onSubmit={handleSubmit(onSubmit)} className='space-y-8'>
               <Input label='Full Name' bordered {...register('name', {
@@ -201,16 +230,17 @@ const SecondHere = ({ referral_code }) => {
               <Input type='number' label='Amount' bordered {...register('amount', {
                 required: {
                   value: true,
-                  message: ' Amount is required'
-                }
+                  message: 'Amount is required',
+                },
+                min: {
+                  value: 150000,
+                  message: 'Minimum Amount is 150,000'
+                },
+                max: {
+                  value: 1000000,
+                  message: 'Maximum amount is 1,000,000'
+                },
               })} error={errors?.amount?.message} />
-
-              {/* <Input type='number' label='Duration' bordered {...register('duration', {
-                required: {
-                  value: true,
-                  message: ' Duration is required'
-                }
-              })} error={errors?.duration?.message} /> */}
 
               <Select label='Durations' options={durations} {...register('duration', {
                 required: {
