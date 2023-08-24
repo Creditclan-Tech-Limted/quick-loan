@@ -67,7 +67,6 @@ const SecondHere = ({ referral_code }) => {
     onCompleted: (data) => {
       axios.post(`https://sellbackend.creditclan.com/merchantclan/public/index.php/api/personal/loans/${request?.id}/offer`, { creditclan_request_id: data?.request_id, offer: watch().amount });
       setViews('success')
-      // console.log({ data });
     },
   });
 
@@ -76,7 +75,7 @@ const SecondHere = ({ referral_code }) => {
     try {
       setIsLoading(true);
       await saveLoan();
-      // launch();
+      setIsLoading(false);
     } catch (error) {
       console.log({ error });
     }
@@ -84,7 +83,7 @@ const SecondHere = ({ referral_code }) => {
 
   const saveLoan = async () => {
     try {
-      const res = await axios.post(`https://sellbackend.creditclan.com/merchantclan/public/index.php/api/personal/loan`, { name: watch().name, amount: watch().amount, duration: watch().duration, email: watch().email, agent_phone: watch().phone, phone: watch().phone});
+      const res = await axios.post(`https://sellbackend.creditclan.com/merchantclan/public/index.php/api/personal/loan`, { name: watch().name, amount: watch().amount, duration: watch().duration, email: watch().email, agent_phone: watch().phone, phone: watch().phone });
 
       console.log(res.data.data);
       if (!res?.data?.status) {
@@ -93,6 +92,7 @@ const SecondHere = ({ referral_code }) => {
         return
       }
       setRequest(res?.data?.data?.request);
+      launch();
     } catch (error) {
       console.log(error);
     }
@@ -100,11 +100,9 @@ const SecondHere = ({ referral_code }) => {
   const cancelLoan = async () => {
     try {
       setIsLoading(true);
-      const res = await axios.post(`https://sellbackend.creditclan.com/merchantclan/public/index.php/api/personal/loans/${request?.id}/cancel`, { name: watch().name, amount: watch().amount, duration: watch().duration, email: watch().email, agent_phone: watch().phone });
-
+      await axios.delete(`https://sellbackend.creditclan.com/merchantclan/public/index.php/api/personal/loans/${request?.id}/cancel`);
       setViews('request_details');
-
-      console.log(res?.data?.data);
+      setIsLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -209,10 +207,7 @@ const SecondHere = ({ referral_code }) => {
                 <p>Duration: </p>
               </div>
 
-              <div className='grid grid-cols-2 mt-5 gap-4'>
-                <Button>Continue</Button>
-                <Button color='red' variant='outlined' onClick={cancelLoan}>Cancel</Button>
-              </div>
+              <Button color='red' className='mt-10' onClick={cancelLoan} loading={isLoading}>Cancel</Button>
             </>
           )}
 
