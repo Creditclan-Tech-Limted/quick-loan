@@ -60,6 +60,8 @@ const SecondHere = ({ referral_code }) => {
         attachments_list: ['Utility bill'],
         show_address: true,
         show_offers: false,
+        show_nok: true,
+        no_frequently_called_number: 2
       },
     },
     onReady: () => {
