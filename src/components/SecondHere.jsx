@@ -83,7 +83,7 @@ const SecondHere = ({ referral_code }) => {
 
   const saveLoan = async () => {
     try {
-      const res = await axios.post(`https://sellbackend.creditclan.com/merchantclan/public/index.php/api/personal/loan`, { name: watch().name, amount: watch().amount, duration: watch().duration, email: watch().email, agent_phone: watch().phone, phone: watch().phone });
+      const res = await axios.post(`https://sellbackend.creditclan.com/merchantclan/public/index.php/api/personal/loan`, { name: watch().name, amount: watch().amount, duration: watch().duration, email: watch().email, agent_phone: referral_code, phone: watch().phone });
 
       console.log(res.data.data);
       if (!res?.data?.status) {
