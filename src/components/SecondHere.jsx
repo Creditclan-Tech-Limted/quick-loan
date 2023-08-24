@@ -37,7 +37,7 @@ const SecondHere = ({ referral_code }) => {
         amount: watch().amount,
         tenor: watch().duration,
         tenor_type: 2,
-        product_id: "29822 ",
+        product_id: "30025",
       },
       profile: {
         full_name: watch().name,
@@ -84,7 +84,7 @@ const SecondHere = ({ referral_code }) => {
 
   const saveLoan = async () => {
     try {
-      const res = await axios.post(`https://sellbackend.creditclan.com/merchantclan/public/index.php/api/personal/loan`, { name: watch().name, amount: watch().amount, duration: watch().duration, email: watch().email, phone: watch().phone });
+      const res = await axios.post(`https://sellbackend.creditclan.com/merchantclan/public/index.php/api/personal/loan`, { name: watch().name, amount: watch().amount, duration: watch().duration, email: watch().email, agent_phone: watch().phone, phone: watch().phone});
 
       console.log(res.data.data);
       if (!res?.data?.status) {
@@ -93,6 +93,18 @@ const SecondHere = ({ referral_code }) => {
         return
       }
       setRequest(res?.data?.data?.request);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  const cancelLoan = async () => {
+    try {
+      setIsLoading(true);
+      const res = await axios.post(`https://sellbackend.creditclan.com/merchantclan/public/index.php/api/personal/loans/${request?.id}/cancel`, { name: watch().name, amount: watch().amount, duration: watch().duration, email: watch().email, agent_phone: watch().phone });
+
+      setViews('request_details');
+
+      console.log(res?.data?.data);
     } catch (error) {
       console.log(error);
     }
@@ -199,7 +211,7 @@ const SecondHere = ({ referral_code }) => {
 
               <div className='grid grid-cols-2 mt-5 gap-4'>
                 <Button>Continue</Button>
-                <Button color='red' variant='outlined'>Cancel</Button>
+                <Button color='red' variant='outlined' onClick={cancelLoan}>Cancel</Button>
               </div>
             </>
           )}
