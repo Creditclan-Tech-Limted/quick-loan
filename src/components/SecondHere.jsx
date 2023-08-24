@@ -28,7 +28,7 @@ const SecondHere = ({ referral_code }) => {
   const [openDrawer, setOpenDrawer] = useState(false);
   const [request, setRequest] = useState({})
   const { register, handleSubmit, formState: { errors }, watch } = useForm();
-  const [views, setViews] = useState('requirements')
+  const [views, setViews] = useState('success')
   const { launch } = useEligibility({
     data: {
       banner: "https://i.ibb.co/F3HsSx0/eligibility-banner.jpg",
@@ -55,6 +55,7 @@ const SecondHere = ({ referral_code }) => {
         show_signature: true,
         tokenize_card: true,
         verify_work_email: true,
+        show_work_information: true,
         show_attachments: true,
         attachments_list: ['Utility bill'],
         show_address: true,
@@ -282,7 +283,10 @@ const SecondHere = ({ referral_code }) => {
                 <img src="/assets/images/Young and happy-bro.svg" alt="" />
                 {/* <IconCheck color='green' size={300} /> */}
                 <p className="text-4xl font-bold text-center">
-                  Congratulations, <br /> We are good to go
+                Congratulations!!! <br />
+
+                <div className="text-2xl mt-3 font-normal">Application completed. Our team will review your submission</div> 
+                  {/* Congratulations, <br /> We are good to go */}
                 </p>
               </div>
               <Button className='text-white mt-5' onClick={() => setOpenDrawer(false)} >Close</Button>
