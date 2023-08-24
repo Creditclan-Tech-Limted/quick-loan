@@ -199,12 +199,27 @@ const SecondHere = ({ referral_code }) => {
           {views === 'request_exist' && (
             <>
               <p className='text-xl font-bold'>Request Already Exist</p>
-              <div className='border border-black space-y-3 p-3 rounded mt-5'>
-                <p>Name: </p>
-                <p>Email: </p>
-                <p>Phone: </p>
-                <p>Amount: </p>
-                <p>Duration: </p>
+              <div className='border border-black space-y-4 p-3 rounded mt-5'>
+                <div className='flex justify-between'>
+                  <p>Name:</p>
+                  <p>{request?.full_name}</p>
+                </div>
+                <div className='flex justify-between'>
+                  <p>Phone:</p>
+                  <p>{request?.phone}</p>
+                </div>
+                <div className='flex justify-between'>
+                  <p>Email:</p>
+                  <p>{request?.email}</p>
+                </div>
+                <div className='flex justify-between'>
+                  <p>Amount:</p>
+                  <p>{request?.amount}</p>
+                </div>
+                <div className='flex justify-between'>
+                  <p>Duration:</p>
+                  <p>{request?.duration} month(s)</p>
+                </div>
               </div>
 
               <Button color='red' className='mt-10' onClick={cancelLoan} loading={isLoading}>Cancel</Button>
