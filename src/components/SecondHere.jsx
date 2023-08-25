@@ -27,8 +27,8 @@ const SecondHere = ({ referral_code }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [openDrawer, setOpenDrawer] = useState(false);
   const [request, setRequest] = useState({})
-  const { register, handleSubmit, formState: { errors }, watch } = useForm();
-  const [views, setViews] = useState('success')
+  const { register, handleSubmit, formState: { errors }, watch, reset } = useForm();
+  const [views, setViews] = useState('requirements')
   const { launch } = useEligibility({
     data: {
       banner: "https://i.ibb.co/F3HsSx0/eligibility-banner.jpg",
@@ -61,7 +61,8 @@ const SecondHere = ({ referral_code }) => {
         show_address: true,
         show_offers: false,
         show_nok: true,
-        no_frequently_called_number: 2
+        no_frequently_called_number: 2,
+        remember_last_application_date: false
       },
     },
     onReady: () => {
@@ -74,7 +75,6 @@ const SecondHere = ({ referral_code }) => {
   });
 
   const onSubmit = async (data) => {
-    console.log(data);
     try {
       setIsLoading(true);
       await saveLoan();
@@ -90,6 +90,7 @@ const SecondHere = ({ referral_code }) => {
 
       console.log(res.data.data);
       if (!res?.data?.status) {
+        console.log(res.data.data);
         setViews('request_exist');
         setRequest(res?.data?.data);
         return
@@ -106,6 +107,16 @@ const SecondHere = ({ referral_code }) => {
       await axios.delete(`https://sellbackend.creditclan.com/merchantclan/public/index.php/api/personal/loans/${request?.id}/cancel`);
       setViews('request_details');
       setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const restart = async () => {
+    try {
+      setViews('requirements');
+      reset()
+
     } catch (error) {
       console.log(error);
     }
@@ -182,26 +193,28 @@ const SecondHere = ({ referral_code }) => {
       </div>
 
       <>
-        <Drawer isOpen={openDrawer} onClose={() => setOpenDrawer(false)} title='Request Detials'>
-          {views === 'requirements' && (
+        {views === 'requirements' && (
+          <Drawer isOpen={openDrawer} onClose={() => setOpenDrawer(false)} title='Loan Requirements'>
             <>
-              <div className='space-y-2'>
-                <p className='text-2xl font-semibold'>Loan Requirements</p>
-                <p className='!mt-5'>▪️ BVN</p>
-                <p>▪️ Bio Information </p>
-                <p>▪️ Valid Work Ids</p>
-                <p>▪️ Next of Kin Details</p>
-                <p>▪️ Valid Work Email (not gmail or yahoo)</p>
-                <p>▪️ Valid Utility bill (home address)</p>
-                <p>▪️ Six (6) months bank statement</p>
+              <div className='space-y-4'>
+                {/* <p className='text-2xl font-semibold'>Loan Requirements</p> */}
+                <p className=''>▪️ BVN</p>
+                {/* <p>▪️ Bio Information </p> */}
+                <p>▪️ Valid Work ID</p>
+                <p>▪️ Next of Kin </p>
+                <p>▪️ Valid Work Email (gmail/yahoo email is not allowed)</p>
+                <p>▪️ Valid Utility Bill (not older than 3 month)</p>
+                <p>▪️ Six (6) months Bank Statement</p>
               </div>
               <Button className='text-white mt-16' onClick={() => setViews('request_details')}> Continue </Button>
             </>
-          )}
+          </Drawer>
+        )}
 
-          {views === 'request_exist' && (
+        {views === 'request_exist' && (
+          <Drawer isOpen={openDrawer} onClose={() => setOpenDrawer(false)} title='Request Details'>
             <>
-              <p className='text-xl font-bold'>Request Already Exist</p>
+              <p className=''>You have a pending request that is under review. <br /> Contact us on our support lines if you require any assistance.</p>
               <div className='border border-black space-y-4 p-3 rounded mt-5'>
                 <div className='flex justify-between'>
                   <p>Name:</p>
@@ -225,11 +238,19 @@ const SecondHere = ({ referral_code }) => {
                 </div>
               </div>
 
-              <Button color='red' className='mt-10' onClick={cancelLoan} loading={isLoading}>Cancel</Button>
-            </>
-          )}
+              {!request.offer && (
+                <>
+                  <Button color='red' className='mt-10' onClick={cancelLoan} loading={isLoading}>Cancel</Button>
+                </>
+              )}
 
-          {views === 'request_details' && (
+              <p className='mt-5 text-blue-500 text-end cursor-pointer underline' onClick={restart} > Back to home page </p>
+            </>
+          </Drawer>
+        )}
+
+        {views === 'request_details' && (
+          <Drawer isOpen={openDrawer} onClose={() => setOpenDrawer(false)} title='Application'>
             <form onSubmit={handleSubmit(onSubmit)} className='space-y-8'>
               <Input label='Full Name' bordered {...register('name', {
                 required: {
@@ -277,25 +298,28 @@ const SecondHere = ({ referral_code }) => {
 
               <Button type='submit' loading={isLoading} className='mt-10 text-white'>Continue</Button>
             </form>
-          )}
+          </Drawer>
+        )}
 
-          {views === 'success' && (
+        {views === 'success' && (
+          <Drawer isOpen={openDrawer} onClose={() => setOpenDrawer(false)} title='Success'>
+
             <>
               <div className="pt-42">
                 <img src="/assets/images/Young and happy-bro.svg" alt="" />
                 {/* <IconCheck color='green' size={300} /> */}
                 <p className="text-4xl font-bold text-center">
-                Congratulations!!! <br />
+                  Congratulations!!! <br />
 
-                <div className="text-2xl mt-3 font-normal">Application completed. Our team will review your submission</div> 
+                  <div className="text-2xl mt-3 font-normal">Application completed. Our team will review your submission</div>
                   {/* Congratulations, <br /> We are good to go */}
                 </p>
               </div>
               <Button className='text-white mt-5' onClick={() => setOpenDrawer(false)} >Close</Button>
             </>
-          )}
+          </Drawer>
+        )}
 
-        </Drawer>
       </>
     </>
   );

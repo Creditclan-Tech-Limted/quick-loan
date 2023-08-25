@@ -10,7 +10,6 @@ const useEligibility = ({ data, onReady, onCancel, onOffer, onCompleted }) => {
   const widget = useRef();
 
   useEffect(() => {
-    console.log({data});
     widget.current = CcEligibilityWidget.init({
       data,
       onReady: (args) => {
