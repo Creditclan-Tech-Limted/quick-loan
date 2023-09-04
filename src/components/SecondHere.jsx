@@ -38,6 +38,7 @@ const SecondHere = ({ referral_code }) => {
         tenor: watch().duration,
         tenor_type: 2,
         product_id: "30025",
+        home_address: address().address
       },
       profile: {
         full_name: watch().name,
@@ -196,15 +197,14 @@ const SecondHere = ({ referral_code }) => {
         {views === 'requirements' && (
           <Drawer isOpen={openDrawer} onClose={() => setOpenDrawer(false)} title='Loan Requirements'>
             <>
+              <p className='mb-5'>The following information will be requested from you. <br /> Ensure you have them available before you proceed.</p>
               <div className='space-y-4'>
-                {/* <p className='text-2xl font-semibold'>Loan Requirements</p> */}
                 <p className=''>▪️ BVN</p>
-                {/* <p>▪️ Bio Information </p> */}
-                <p>▪️ Valid Work ID</p>
-                <p>▪️ Next of Kin </p>
-                <p>▪️ Valid Work Email (gmail/yahoo email is not allowed)</p>
-                <p>▪️ Valid Utility Bill (not older than 3 month)</p>
                 <p>▪️ Six (6) months Bank Statement</p>
+                <p>▪️ Valid Work ID</p>
+                <p>▪️ Valid Work Email (gmail/yahoo email is not allowed)</p>
+                <p>▪️ Utility Bill (not older than 3 month)</p>
+                <p>▪️ Next of Kin </p>
               </div>
               <Button className='text-white mt-16' onClick={() => setViews('request_details')}> Continue </Button>
             </>
@@ -272,6 +272,13 @@ const SecondHere = ({ referral_code }) => {
                   message: ' Email is required'
                 }
               })} error={errors?.email?.message} />
+
+              <Input type='address' label='Home Address' bordered {...register('home_address', {
+                required: {
+                  value: true,
+                  message: 'Home Address is required'
+                }
+              })} error={errors?.home_address?.message} />
 
               <Input type='number' label='Amount' bordered {...register('amount', {
                 required: {
