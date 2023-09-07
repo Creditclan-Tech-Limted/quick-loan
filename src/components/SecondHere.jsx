@@ -7,6 +7,7 @@ import Input from './global/Input';
 import useEligibility from '@/hooks/use-eligibility';
 import axios from 'axios';
 import Select from './global/Select';
+import { differenceInMonths } from 'date-fns'
 
 const durations = [
   { text: '1 Month', value: 1 },
@@ -28,7 +29,8 @@ const SecondHere = ({ referral_code }) => {
   const [openDrawer, setOpenDrawer] = useState(false);
   const [request, setRequest] = useState({})
   const { register, handleSubmit, formState: { errors }, watch, reset } = useForm();
-  const [views, setViews] = useState('requirements')
+  const [views, setViews] = useState('requirements');
+  const [_differenceInMonths, setDifferenceInMonths] = useState(0)
   const { launch } = useEligibility({
     data: {
       banner: "https://i.ibb.co/F3HsSx0/eligibility-banner.jpg",
@@ -68,7 +70,7 @@ const SecondHere = ({ referral_code }) => {
     },
     onReady: () => {
       let eligibility_link = document.getElementById('data-collection-widget')?.src;
-      console.log(document.getElementById('data-collection-widget'));
+      axios.post(`https://sellbackend.creditclan.com/merchantclan/public/index.php/api/personal/loans/${request?.id}/offer`, { eligibility_link });
       setIsLoading(false);
     },
     onCompleted: (data) => {
@@ -90,10 +92,18 @@ const SecondHere = ({ referral_code }) => {
   const saveLoan = async () => {
     try {
       const res = await axios.post(`https://sellbackend.creditclan.com/merchantclan/public/index.php/api/personal/loan`, { name: watch().name, amount: watch().amount, duration: watch().duration, email: watch().email, agent_phone: referral_code, phone: watch().phone, address: watch().address });
-
-      console.log(res.data.data);
       if (!res?.data?.status) {
-        console.log(res.data.data);
+        const currentDate = new Date();
+        const targetDate = new Date(res?.data?.data?.created_at);
+        const monthsDifference = differenceInMonths(targetDate, currentDate);
+        if (monthsDifference > 0) {
+          await axios.delete(`https://sellbackend.creditclan.com/merchantclan/public/index.php/api/personal/loans/${req?.data?.data?.id}/cancel`);
+          const resi = await axios.post(`https://sellbackend.creditclan.com/merchantclan/public/index.php/api/personal/loan`, { name: watch().name, amount: watch().amount, duration: watch().duration, email: watch().email, agent_phone: referral_code, phone: watch().phone, address: watch().address });
+          setRequest(resi?.data?.data?.request);
+          launch();
+          return
+        }
+        setDifferenceInMonths(monthsDifference)
         setViews('request_exist');
         setRequest(res?.data?.data);
         return
@@ -216,7 +226,20 @@ const SecondHere = ({ referral_code }) => {
         {views === 'request_exist' && (
           <Drawer isOpen={openDrawer} onClose={() => setOpenDrawer(false)} title='Request Details'>
             <>
-              <p className=''>You have a pending request that is under review. <br /> Contact us on our support lines if you require any assistance.</p>
+              {!request?.eligibility_link && !request?.creditclan_request_id && (
+                <p> You have an on-going request. <br /> Click on "Continue" to proceed with your application. </p>
+              )}
+              {request?.eligibility_link && !request?.creditclan_request_id && (
+                <>
+                  <p> You have an on-going request. <br /> Click on "Continue" to proceed with your application. </p>
+                  <p>Contact us on our support lines if you require any assistance.</p>
+                </>
+              )}
+
+              {request?.eligibility_link && request?.creditclan_request_id && (
+                <p className=''>You have a pending request that is under review. <br /> Contact us on our support lines if you require any assistance.</p>
+              )}
+
               <div className='border border-black space-y-4 p-3 rounded mt-5'>
                 <div className='flex justify-between'>
                   <p>Name:</p>
@@ -240,13 +263,18 @@ const SecondHere = ({ referral_code }) => {
                 </div>
               </div>
 
-              {!request.offer && (
+              {!request?.eligibility_link && !request?.creditclan_request_id && (
                 <>
-                  <Button color='red' className='mt-10' onClick={cancelLoan} loading={isLoading}>Cancel</Button>
+                  <Button color='red' className='my-10' onClick={cancelLoan} loading={isLoading}>Cancel</Button>
+                  <Button className='mt-10 bg-blue-600 text-white' onClick={launch} loading={isLoading}>Continue</Button>
                 </>
               )}
 
-              <p className='mt-5 text-blue-500 text-end cursor-pointer underline' onClick={restart} > Back to home page </p>
+              {request?.eligibility_link && !request?.creditclan_request_id && (
+                <Button className='mt-10 bg-blue-600 text-white' onClick={launch} loading={isLoading}>Continue</Button>
+              )}
+
+              {/* <p className='mt-5 text-blue-500 text-end cursor-pointer underline' onClick={restart} > Back to home page </p> */}
             </>
           </Drawer>
         )}
