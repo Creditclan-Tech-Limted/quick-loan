@@ -67,6 +67,8 @@ const SecondHere = ({ referral_code }) => {
       },
     },
     onReady: () => {
+      let eligibility_link = document.getElementById('data-collection-widget')?.src;
+      console.log(document.getElementById('data-collection-widget'));
       setIsLoading(false);
     },
     onCompleted: (data) => {
