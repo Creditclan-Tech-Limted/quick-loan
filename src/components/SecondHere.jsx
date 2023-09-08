@@ -227,11 +227,11 @@ const SecondHere = ({ referral_code }) => {
           <Drawer isOpen={openDrawer} onClose={() => setOpenDrawer(false)} title='Request Details'>
             <>
               {!request?.eligibility_link && !request?.creditclan_request_id && (
-                <p> You have an on-going request. <br /> Click on "Continue" to proceed with your application. </p>
+                <p> You have an on-going request. <br /> Click on ``Continue`` to proceed with your application. </p>
               )}
               {request?.eligibility_link && !request?.creditclan_request_id && (
                 <>
-                  <p> You have an on-going request. <br /> Click on "Continue" to proceed with your application. </p>
+                  <p> You have an on-going request. <br /> Click on ``Continue`` to proceed with your application. </p>
                   <p>Contact us on our support lines if you require any assistance.</p>
                 </>
               )}
