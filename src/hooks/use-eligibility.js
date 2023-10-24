@@ -6,7 +6,7 @@ if (typeof window !== "undefined") {
   // Client-side-only code
   CcEligibilityWidget = { ...window.CcEligibilityWidget };
 }
-const useEligibility = ({ data, onReady, onCancel, onOffer, onCompleted }) => {
+const useEligibility = ({ data, onReady, onCancel, onOffer, onCompleted, onRequest }) => {
   const widget = useRef();
 
   useEffect(() => {
@@ -14,6 +14,9 @@ const useEligibility = ({ data, onReady, onCancel, onOffer, onCompleted }) => {
       data,
       onReady: (args) => {
         if (onReady) onReady(args);
+      },
+      onRequest: (args) => {
+        if (onRequest) onRequest(args);
       },
       onOffer: (offer) => {
         if (onOffer) onOffer(offer);

@@ -31,6 +31,8 @@ const SecondHere = ({ referral_code }) => {
   const { register, handleSubmit, formState: { errors }, watch, reset } = useForm();
   const [views, setViews] = useState('requirements');
   const [_differenceInMonths, setDifferenceInMonths] = useState(0)
+  const [loan, setLoan] = useState()
+
   const { launch } = useEligibility({
     data: {
       banner: "https://i.ibb.co/F3HsSx0/eligibility-banner.jpg",
@@ -73,6 +75,9 @@ const SecondHere = ({ referral_code }) => {
       axios.post(`https://sellbackend.creditclan.com/merchantclan/public/index.php/api/personal/loans/${request?.id}/offer`, { eligibility_link });
       setIsLoading(false);
     },
+    onRequest: (data) => {
+      axios.post(`https://sellbackend.creditclan.com/merchantclan/public/index.php/api/personal/loans/${request?.id}/offer`, { creditclan_request_id: data?.request_id });
+    },
     onCompleted: (data) => {
       axios.post(`https://sellbackend.creditclan.com/merchantclan/public/index.php/api/personal/loans/${request?.id}/offer`, { creditclan_request_id: data?.request_id, offer: watch().amount });
       setViews('success')
@@ -89,6 +94,22 @@ const SecondHere = ({ referral_code }) => {
     }
   };
 
+  const gertLoanDetails = async (request_id) => {
+    try {
+      const { data } = await axios.post('https://mobile.creditclan.com/api/v3/customer/check/details', { email: watch().email, phone: watch().phone }, {
+        headers: { 'x-api-key': 'WE4mwadGYqf0jv1ZkdFv1LNPMpZHuuzoDDiJpQQqaes3PzB7xlYhe8oHbxm6J228' }
+      });
+      const { token } = data;
+      const res = await axios.post('https://mobile.creditclan.com/api/v3/loan/details', { token, request_id }, {
+        headers: { 'x-api-key': 'WE4mwadGYqf0jv1ZkdFv1LNPMpZHuuzoDDiJpQQqaes3PzB7xlYhe8oHbxm6J228' }
+      });
+      setLoan(res.data.data)
+      return res.data.data;
+    } catch (error) {
+      console.log({ error });
+    }
+  }
+
   const saveLoan = async () => {
     try {
       const res = await axios.post(`https://sellbackend.creditclan.com/merchantclan/public/index.php/api/personal/loan`, { name: watch().name, amount: watch().amount, duration: watch().duration, email: watch().email, agent_phone: referral_code, phone: watch().phone, address: watch().address });
@@ -103,6 +124,7 @@ const SecondHere = ({ referral_code }) => {
           launch();
           return
         }
+        await gertLoanDetails(res?.data?.data?.creditclan_request_id)
         setDifferenceInMonths(monthsDifference)
         setViews('request_exist');
         setRequest(res?.data?.data);
@@ -227,11 +249,11 @@ const SecondHere = ({ referral_code }) => {
           <Drawer isOpen={openDrawer} onClose={() => setOpenDrawer(false)} title='Request Details'>
             <>
               {!request?.eligibility_link && !request?.creditclan_request_id && (
-                <p> You have an on-going request. <br /> Click on ``Continue`` to proceed with your application. </p>
+                <p> You have an on-going request. <br /> Click on <b>Continue</b> to proceed with your application. </p>
               )}
               {request?.eligibility_link && !request?.creditclan_request_id && (
                 <>
-                  <p> You have an on-going request. <br /> Click on ``Continue`` to proceed with your application. </p>
+                  <p> You have an on-going request. <br /> Click on <b>Continue</b> to proceed with your application. </p>
                   <p>Contact us on our support lines if you require any assistance.</p>
                 </>
               )}
@@ -265,12 +287,13 @@ const SecondHere = ({ referral_code }) => {
 
               {!request?.eligibility_link && !request?.creditclan_request_id && (
                 <>
-                  <Button color='red' className='my-10' onClick={cancelLoan} loading={isLoading}>Cancel</Button>
-                  <Button className='mt-10 bg-blue-600 text-white' onClick={launch} loading={isLoading}>Continue</Button>
+                  <Button className='mt-10 mb-5 bg-blue-600 text-white' onClick={launch} loading={isLoading}>Continue</Button>
+                  <p onClick={cancelLoan} className='underline text-red-500 text-center cursor-pointer'>Cancel this request</p>
+                  {/* <Button color='red' className='my-10' onClick={cancelLoan} loading={isLoading}>Cancel</Button> */}
                 </>
               )}
 
-              {request?.eligibility_link && !request?.creditclan_request_id && (
+              {request && loan && loan.loan.stage !== 'completed' && (
                 <Button className='mt-10 bg-blue-600 text-white' onClick={launch} loading={isLoading}>Continue</Button>
               )}
 
@@ -340,16 +363,12 @@ const SecondHere = ({ referral_code }) => {
 
         {views === 'success' && (
           <Drawer isOpen={openDrawer} onClose={() => setOpenDrawer(false)} title='Success'>
-
             <>
               <div className="pt-42">
                 <img src="/assets/images/Young and happy-bro.svg" alt="" />
-                {/* <IconCheck color='green' size={300} /> */}
                 <p className="text-4xl font-bold text-center">
                   Congratulations!!! <br />
-
                   <div className="text-2xl mt-3 font-normal">Application completed. Our team will review your submission</div>
-                  {/* Congratulations, <br /> We are good to go */}
                 </p>
               </div>
               <Button className='text-white mt-5' onClick={() => setOpenDrawer(false)} >Close</Button>
