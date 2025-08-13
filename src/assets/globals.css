@@ -3,9 +3,23 @@
 @tailwind utilities;
 
 body {
-    /* @apply bg-gray-900 min-h-screen; */
+  /* @apply bg-gray-900 min-h-screen; */
 }
 
 .bg-responsiveHero {
-    background-image: linear-gradient(rgba(38, 25, 51, .6), rgba(25, 25, 51, .6)), url('/assets/images/loan5.jpg');
+  background-image: linear-gradient(
+      rgba(38, 25, 51, 0.6),
+      rgba(25, 25, 51, 0.6)
+    ),
+    url("/assets/images/hero.jpeg");
+  width: 100%;
+}
+
+.bg-responsiveHeroMobile {
+  background-image: linear-gradient(
+      rgba(38, 25, 51, 0.6),
+      rgba(25, 25, 51, 0.6)
+    ),
+    url("/assets/images/heroi_mobile.png");
+  width: 100%;
 }
