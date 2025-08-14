@@ -12,7 +12,6 @@ const RequirementsDrawer = ({ isOpen, onClose, onContinue }) => {
         <div className="space-y-4">
           <p>▪️ BVN</p>
           <p>▪️ Valid Work Email (gmail/yahoo email is not allowed)</p>
-          <p>▪️ Utility Bill (not older than 3 month)</p>
           <p>▪️ Evidence of asset ownership</p>
         </div>
         <Button className="text-white mt-16" onClick={onContinue}>

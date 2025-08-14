@@ -54,7 +54,7 @@ const SecondHere = ({ referral_code }) => {
         show_offers: false,
         show_signature: false,
         tokenize_card: false,
-        verify_work_email: true,
+        verify_work_email: false,
         show_work_information: true,
         show_attachments: true,
         attachments_list: ["evidence_of_ownership"],

@@ -11,7 +11,7 @@ body {
       rgba(38, 25, 51, 0.6),
       rgba(25, 25, 51, 0.6)
     ),
-    url("/assets/images/hero.jpeg");
+    url("/assets/images/heroo.png");
   width: 100%;
 }
 
@@ -20,6 +20,6 @@ body {
       rgba(38, 25, 51, 0.6),
       rgba(25, 25, 51, 0.6)
     ),
-    url("/assets/images/heroi_mobile.png");
+    url("/assets/images/hero_mobile.jpg");
   width: 100%;
 }
