@@ -11,7 +11,6 @@ import RequestDetailsDrawer from "./drawers/RequestDetailsDrawer";
 import SuccessDrawer from "./drawers/SuccessDrawer";
 import Button from "./global/Button";
 import { IconChevronRight } from "@tabler/icons-react";
-import { useMediaQuery } from "react-responsive";
 
 const SecondHere = ({ referral_code }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -197,27 +196,15 @@ const SecondHere = ({ referral_code }) => {
     }
   };
 
-  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
-
   return (
-    <div
-      className={
-        isMobile
-          ? "bg-responsiveHeroMobile w-full h-screen bg-cover bg-no-repeat relative"
-          : "bg-responsiveHero w-full h-screen bg-cover bg-no-repeat relative"
-      }
-    >
-      <div
-        className={`flex items-center justify-center w-full absolute ${
-          isMobile ? "bottom-4" : "bottom-20"
-        } px-4`}
-      >
+    <div className="hero-background">
+      <div className="flex items-center justify-center w-full absolute bottom-4 sm:bottom-20 px-4">
         <Button
           color="white"
           onClick={() => setOpenDrawer(true)}
           size="lg"
           rightIcon={<IconChevronRight size={16} />}
-          className={isMobile ? "w-full max-w-sm" : ""}
+          className="w-full max-w-sm sm:w-auto sm:max-w-none"
         >
           Get started Now!
         </Button>

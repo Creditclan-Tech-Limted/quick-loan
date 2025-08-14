@@ -6,6 +6,37 @@ body {
   /* @apply bg-gray-900 min-h-screen; */
 }
 
+/* Hero background with responsive media queries */
+.hero-background {
+  width: 100%;
+  height: 100vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: relative;
+}
+
+/* Mobile first - default mobile background */
+.hero-background {
+  background-image: linear-gradient(
+      rgba(38, 25, 51, 0.6),
+      rgba(25, 25, 51, 0.6)
+    ),
+    url("/assets/images/portrait.png");
+}
+
+/* Tablet and desktop - larger screens */
+@media (min-width: 768px) {
+  .hero-background {
+    background-image: linear-gradient(
+        rgba(38, 25, 51, 0.6),
+        rgba(25, 25, 51, 0.6)
+      ),
+      url("/assets/images/hero.png");
+  }
+}
+
+/* Keep the old classes for backward compatibility */
 .bg-responsiveHero {
   background-image: linear-gradient(
       rgba(38, 25, 51, 0.6),
@@ -20,6 +51,6 @@ body {
       rgba(38, 25, 51, 0.6),
       rgba(25, 25, 51, 0.6)
     ),
-    url("/assets/images/hero_mobile.jpg");
+    url("/assets/images/portrait.png");
   width: 100%;
 }
