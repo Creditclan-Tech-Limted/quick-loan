@@ -49,7 +49,7 @@ const SecondHere = ({ referral_code }) => {
         show_bank_account: true,
         show_address: true,
         show_income: false,
-        analyze_bank_statement: false,
+        analyze_bank_statement: true,
         show_offers: false,
         show_signature: false,
         tokenize_card: false,
