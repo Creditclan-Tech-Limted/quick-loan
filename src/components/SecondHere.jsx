@@ -26,6 +26,7 @@ const SecondHere = ({ referral_code }) => {
   const [views, setViews] = useState("requirements");
   const [_differenceInMonths, setDifferenceInMonths] = useState(0);
   const [loan, setLoan] = useState();
+  const [loanType, setLoanType] = useState("");
 
   const { launch } = useEligibility({
     data: {
@@ -34,7 +35,7 @@ const SecondHere = ({ referral_code }) => {
       request: {
         amount: watch().amount,
         tenor: watch().duration,
-        tenor_type: 2,
+        tenor_type: 6,
         product_id: "30025",
         home_address: watch().address,
       },
@@ -45,11 +46,22 @@ const SecondHere = ({ referral_code }) => {
         date_of_birth: null,
         gender: null,
       },
+      work: {
+        monthly_income: watch().monthlyIncome,
+        work_sector: watch().workSector,
+        occupation_id: watch().occupationId,
+        address: watch().workAddress,
+        start_month: watch().startMonth,
+        start_year: watch().startYear,
+        company_name: watch().companyName,
+        official_email: watch().workEmail,
+        work_email_verified: "",
+      },
       config: {
         show_bank_account: true,
         show_address: true,
         show_income: false,
-        analyze_bank_statement: true,
+        analyze_bank_statement: false,
         show_offers: false,
         show_signature: false,
         tokenize_card: false,
@@ -66,24 +78,24 @@ const SecondHere = ({ referral_code }) => {
     },
     onReady: () => {
       let eligibility_link = document.getElementById(
-        "data-collection-widget"
+        "data-collection-widget",
       )?.src;
       axios.post(
         `https://sellbackend.creditclan.com/merchantclan/public/index.php/api/personal/loans/${request?.id}/offer`,
-        { eligibility_link }
+        { eligibility_link },
       );
       setIsLoading(false);
     },
     onRequest: (data) => {
       axios.post(
         `https://sellbackend.creditclan.com/merchantclan/public/index.php/api/personal/loans/${request?.id}/offer`,
-        { creditclan_request_id: data?.request_id }
+        { creditclan_request_id: data?.request_id },
       );
     },
     onCompleted: (data) => {
       axios.post(
         `https://sellbackend.creditclan.com/merchantclan/public/index.php/api/personal/loans/${request?.id}/offer`,
-        { creditclan_request_id: data?.request_id, offer: watch().amount }
+        { creditclan_request_id: data?.request_id, offer: watch().amount },
       );
       setViews("success");
     },
@@ -109,7 +121,7 @@ const SecondHere = ({ referral_code }) => {
             "x-api-key":
               "WE4mwadGYqf0jv1ZkdFv1LNPMpZHuuzoDDiJpQQqaes3PzB7xlYhe8oHbxm6J228",
           },
-        }
+        },
       );
       const { token } = data;
       const res = await axios.post(
@@ -120,7 +132,7 @@ const SecondHere = ({ referral_code }) => {
             "x-api-key":
               "WE4mwadGYqf0jv1ZkdFv1LNPMpZHuuzoDDiJpQQqaes3PzB7xlYhe8oHbxm6J228",
           },
-        }
+        },
       );
       setLoan(res.data.data);
       return res.data.data;
@@ -145,7 +157,7 @@ const SecondHere = ({ referral_code }) => {
           assetType: watch().assetType,
           assetDescription: watch().assetDescription,
           assetValue: watch().assetValue,
-        }
+        },
       );
       if (!res?.data?.status) {
         const currentDate = new Date();
@@ -153,7 +165,7 @@ const SecondHere = ({ referral_code }) => {
         const monthsDifference = differenceInMonths(targetDate, currentDate);
         if (monthsDifference > 0) {
           await axios.delete(
-            `https://sellbackend.creditclan.com/merchantclan/public/index.php/api/personal/loans/${req?.data?.data?.id}/cancel`
+            `https://sellbackend.creditclan.com/merchantclan/public/index.php/api/personal/loans/${req?.data?.data?.id}/cancel`,
           );
           const resi = await axios.post(
             `https://sellbackend.creditclan.com/merchantclan/public/index.php/api/personal/loan`,
@@ -165,7 +177,7 @@ const SecondHere = ({ referral_code }) => {
               agent_phone: referral_code,
               phone: watch().phone,
               address: watch().address,
-            }
+            },
           );
           setRequest(resi?.data?.data?.request);
           launch();
@@ -183,11 +195,12 @@ const SecondHere = ({ referral_code }) => {
       console.log(error);
     }
   };
+
   const cancelLoan = async () => {
     try {
       setIsLoading(true);
       await axios.delete(
-        `https://sellbackend.creditclan.com/merchantclan/public/index.php/api/personal/loans/${request?.id}/cancel`
+        `https://sellbackend.creditclan.com/merchantclan/public/index.php/api/personal/loans/${request?.id}/cancel`,
       );
       setViews("request_details");
       setIsLoading(false);
@@ -215,6 +228,8 @@ const SecondHere = ({ referral_code }) => {
           isOpen={openDrawer && views === "requirements"}
           onClose={() => setOpenDrawer(false)}
           onContinue={() => setViews("request_details")}
+          loanType={loanType}
+          onLoanTypeChange={setLoanType}
         />
 
         <RequestExistDrawer
@@ -236,6 +251,7 @@ const SecondHere = ({ referral_code }) => {
           errors={errors}
           isLoading={isLoading}
           watch={watch}
+          loanType={loanType}
         />
 
         <SuccessDrawer
