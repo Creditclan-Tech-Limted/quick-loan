@@ -157,6 +157,7 @@ const SecondHere = ({ referral_code }) => {
           assetType: watch().assetType,
           assetDescription: watch().assetDescription,
           assetValue: watch().assetValue,
+          address: watch().personalAddress,
         },
       );
       if (!res?.data?.status) {

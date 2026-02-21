@@ -108,7 +108,17 @@ const personalSteps = [
     id: "work_info",
     title: "Work Info",
     subtitle: "Employment details",
-    fields: ["companyName", "workEmail", "jobTitle", "workAddress", "monthlyIncome", "workSector", "occupationId", "startMonth", "startYear"],
+    fields: [
+      "companyName",
+      "workEmail",
+      "jobTitle",
+      "workAddress",
+      "monthlyIncome",
+      "workSector",
+      "occupationId",
+      "startMonth",
+      "startYear",
+    ],
     icon: IconBriefcase,
   },
   {
@@ -145,16 +155,16 @@ const businessSteps = [
     id: "business_personal",
     title: "Personal Info",
     subtitle: "Primary contact details",
-    fields: ["contactName", "contactEmail", "contactPhone"],
+    fields: ["name", "phone", "email"],
     icon: IconUser,
   },
-  {
-    id: "business_other",
-    title: "Other Business Info",
-    subtitle: "Business address and revenue",
-    fields: ["businessAddress", "yearsInOperation", "annualRevenue"],
-    icon: IconMapPin,
-  },
+  // {
+  //   id: "business_other",
+  //   title: "Other Business Info",
+  //   subtitle: "Business address and revenue",
+  //   fields: ["businessAddress", "yearsInOperation", "annualRevenue"],
+  //   icon: IconMapPin,
+  // },
   {
     id: "business_documents",
     title: "Upload CAC Documents",
@@ -211,6 +221,8 @@ const RequestDetailsDrawer = ({
     return value !== undefined && value !== null && `${value}`.trim() !== "";
   };
 
+  console.log(watch());
+
   const isStepComplete = (step) =>
     step.fields.every((field) => isFieldComplete(field));
 
@@ -221,8 +233,8 @@ const RequestDetailsDrawer = ({
   return (
     <Drawer isOpen={isOpen} onClose={onClose} padding={false}>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 h-full">
-        <div className="grid grid-cols-[250px_1fr] gap-6 h-full">
-          <div className="text-body bg-gray-200 p-6 space-y-10">
+        <div className="md:grid md:grid-cols-[250px_1fr] gap-6 h-full">
+          <div className="text-body bg-gray-200 p-6 space-y-10 hidden md:block">
             {steps.map((s, i) => {
               const isActive = i === activeStep;
               const isComplete = isStepComplete(s);
@@ -574,6 +586,19 @@ const RequestDetailsDrawer = ({
                 />
                 <Input
                   type="text"
+                  label="Business Address"
+                  placeholder="Enter your business address"
+                  bordered
+                  {...register("businessAddress", {
+                    required: {
+                      value: true,
+                      message: "Business Address is required",
+                    },
+                  })}
+                  error={errors?.businessAddress?.message}
+                />
+                <Input
+                  type="text"
                   label="Business Type"
                   placeholder="e.g., Retail, Services"
                   bordered
@@ -619,6 +644,36 @@ const RequestDetailsDrawer = ({
                   })}
                   error={errors?.amount?.message}
                 />
+                <Input
+                  type="number"
+                  label="Years in Operation"
+                  placeholder="e.g., 5"
+                  bordered
+                  {...register("yearsInOperation", {
+                    required: {
+                      value: true,
+                      message: "Years in operation is required",
+                    },
+                    min: {
+                      value: 1,
+                      message: "Minimum is 1 year",
+                    },
+                  })}
+                  error={errors?.yearsInOperation?.message}
+                />
+                <Input
+                  type="number"
+                  label="Annual Revenue (₦)"
+                  placeholder="e.g., 10000000"
+                  bordered
+                  {...register("annualRevenue", {
+                    required: {
+                      value: true,
+                      message: "Annual revenue is required",
+                    },
+                  })}
+                  error={errors?.annualRevenue?.message}
+                />
                 <Select
                   label="Duration"
                   options={durations}
@@ -640,20 +695,20 @@ const RequestDetailsDrawer = ({
                   label="Contact Name"
                   placeholder="Enter contact full name"
                   bordered
-                  {...register("contactName", {
+                  {...register("name", {
                     required: {
                       value: true,
                       message: "Contact Name is required",
                     },
                   })}
-                  error={errors?.contactName?.message}
+                  error={errors?.name?.message}
                 />
                 <Input
                   type="email"
                   label="Contact Email"
                   placeholder="contact@company.com"
                   bordered
-                  {...register("contactEmail", {
+                  {...register("email", {
                     required: {
                       value: true,
                       message: "Contact Email is required",
@@ -663,14 +718,14 @@ const RequestDetailsDrawer = ({
                       message: "Please enter a valid email address",
                     },
                   })}
-                  error={errors?.contactEmail?.message}
+                  error={errors?.email?.message}
                 />
                 <Input
                   type="tel"
                   label="Contact Phone"
                   placeholder="e.g., 08012345678"
                   bordered
-                  {...register("contactPhone", {
+                  {...register("phone", {
                     required: {
                       value: true,
                       message: "Contact Phone is required",
@@ -680,7 +735,7 @@ const RequestDetailsDrawer = ({
                       message: "Please enter a valid 11-digit phone number",
                     },
                   })}
-                  error={errors?.contactPhone?.message}
+                  error={errors?.phone?.message}
                 />
               </div>
             )}

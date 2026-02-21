@@ -1,48 +1,42 @@
 import Button from "@/components/global/Button";
 import Drawer from "@/components/global/Drawer";
 
-const RequestExistDrawer = ({ 
-  isOpen, 
-  onClose, 
-  request, 
-  loan, 
-  launch, 
-  cancelLoan, 
-  isLoading 
+const RequestExistDrawer = ({
+  isOpen,
+  onClose,
+  request,
+  loan,
+  launch,
+  cancelLoan,
+  isLoading,
 }) => {
   return (
-    <Drawer
-      isOpen={isOpen}
-      onClose={onClose}
-      title="Request Details"
-    >
+    <Drawer isOpen={isOpen} onClose={onClose} title="Request Details">
       <>
-        {!request?.eligibility_link &&
-          !request?.creditclan_request_id && (
-            <p>
-              {" "}
-              You have an on-going request. <br /> Click on{" "}
-              <b>Continue</b> to proceed with your application.{" "}
-            </p>
-          )}
+        {!request?.eligibility_link && !request?.creditclan_request_id && (
+          <p>
+            {" "}
+            You have an on-going request. <br /> Click on <b>Continue</b> to
+            proceed with your application.{" "}
+          </p>
+        )}
         {request?.eligibility_link && !request?.creditclan_request_id && (
           <>
             <p>
               {" "}
-              You have an on-going request. <br /> Click on{" "}
-              <b>Continue</b> to proceed with your application.{" "}
+              You have an on-going request. <br /> Click on <b>Continue</b> to
+              proceed with your application.{" "}
             </p>
             <p>
-              Contact us on our support lines if you require any
-              assistance.
+              Contact us on our support lines if you require any assistance.
             </p>
           </>
         )}
 
         {request?.eligibility_link && request?.creditclan_request_id && (
           <p className="">
-            You have a pending request that is under review. <br />{" "}
-            Contact us on our support lines if you require any assistance.
+            You have a pending request that is under review. <br /> Contact us
+            on our support lines if you require any assistance.
           </p>
         )}
 
@@ -69,24 +63,23 @@ const RequestExistDrawer = ({
           </div>
         </div>
 
-        {!request?.eligibility_link &&
-          !request?.creditclan_request_id && (
-            <>
-              <Button
-                className="mt-10 mb-5 bg-blue-600 text-white"
-                onClick={launch}
-                loading={isLoading}
-              >
-                Continue
-              </Button>
-              <p
-                onClick={cancelLoan}
-                className="underline text-red-500 text-center cursor-pointer"
-              >
-                Cancel this request
-              </p>
-            </>
-          )}
+        {!request?.eligibility_link && !request?.creditclan_request_id && (
+          <>
+            <Button
+              className="mt-10 mb-5 bg-blue-600 text-white"
+              onClick={launch}
+              loading={isLoading}
+            >
+              Continue
+            </Button>
+            <p
+              onClick={cancelLoan}
+              className="underline text-red-500 text-center cursor-pointer"
+            >
+              Cancel this request
+            </p>
+          </>
+        )}
 
         {request && loan && loan.loan.stage !== "completed" && (
           <Button

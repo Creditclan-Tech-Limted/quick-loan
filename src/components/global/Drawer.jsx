@@ -45,7 +45,7 @@ const Drawer = ({ isOpen, title, padding = true, onClose, children }) => {
             animate="visible"
             exit="exit"
             className={classNames(
-              "fixed right-0 bottom-0 sm:top-0 md:w-[900px] overflow-hidden",
+              "fixed right-0 bottom-0 sm:top-0 w-full md:w-[900px] overflow-hidden",
               "rounded-t-3xl md:rounded-r-3xl md:rounded-l-3xl md:p-4",
             )}
           >
