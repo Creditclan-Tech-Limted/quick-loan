@@ -13,9 +13,10 @@ function CheckEligibility({ onBack, onNext }) {
 
   const [loading, setLoading] = useState("");
 
-  const { data: firstPlan, isLoading: isGetFirstPlanLoading } = useGetFirstPlanQuery({
-    id: data?.ride_data.rider_id
-  });
+  const { data: firstPlan, isLoading: isGetFirstPlanLoading } =
+    useGetFirstPlanQuery({
+      id: data?.ride_data.rider_id,
+    });
 
   const { mutateAsync: updateRideUser, isLoading: isUpdateRideUserLoading } =
     useUpdateRideUserMutation();
@@ -29,8 +30,8 @@ function CheckEligibility({ onBack, onNext }) {
       intro: "Happy to check eligibility for your ride",
       banner: "https://i.ibb.co/F3HsSx0/eligibility-banner.jpg",
       extra: {
-        ride_id: data.ride_data.id
-      }, 
+        ride_id: data.ride_data.id,
+      },
       request: {
         amount: data.ride_data.amount,
         tenor: 1,
@@ -60,19 +61,22 @@ function CheckEligibility({ onBack, onNext }) {
       setLoading("false");
     },
     onCompleted: (data) => {
-      handleEligibilityCompleted({plan_amount: data.plans[0].plan_amount, request_id: data.request_id});
+      handleEligibilityCompleted({
+        plan_amount: data.plans[0].plan_amount,
+        request_id: data.request_id,
+      });
     },
   });
   const handleAnalyse = () => {
     setLoading("true");
     launchAnalyse();
   };
-  const handleEligibilityCompleted = async ({plan_amount, request_id}) => {
+  const handleEligibilityCompleted = async ({ plan_amount, request_id }) => {
     try {
       const payload = {
         phone: data.user.phone,
         plan_amount: plan_amount,
-        creditclan_request_id: request_id
+        creditclan_request_id: request_id,
       };
       const res = await updateRideUser(payload);
       let expiry_date = new Date(res.data.data.plan_expiry_date);
@@ -97,7 +101,7 @@ function CheckEligibility({ onBack, onNext }) {
       console.log({ e });
     }
   };
-  console.log(firstPlan)
+  console.log(firstPlan);
   return (
     <>
       <div>
@@ -134,7 +138,8 @@ function CheckEligibility({ onBack, onNext }) {
 
       {loading !== "true" &&
         !isUpdateRideUserLoading &&
-        !isUpdateActiveRideUserLoading && data?.ride_data?.amount !== "3000" && (
+        !isUpdateActiveRideUserLoading &&
+        data?.ride_data?.amount !== "3000" && (
           <>
             <div className="pt-70 pb-2">
               <img
@@ -149,11 +154,9 @@ function CheckEligibility({ onBack, onNext }) {
               <li className="font-17 text-cc-dark">
                 This is a one time 5 minutes process
               </li>
-              <li className="font-17 text-cc-dark">
-                Requires your BVN
-              </li>
+              <li className="font-17 text-cc-dark">Requires your BVN</li>
               <li className="font-17 text-cc-dark mb-2">
-                Involves analyzing your digital bank statement 
+                Involves analyzing your digital bank statement
               </li>
             </div>
             <button
@@ -161,7 +164,7 @@ function CheckEligibility({ onBack, onNext }) {
               className="btn btn-blue mr-4 font-17"
             >
               Continue to eligibility
-            </button>              
+            </button>
           </>
         )}
       {!loading && isUpdateRideUserLoading && isUpdateActiveRideUserLoading && (

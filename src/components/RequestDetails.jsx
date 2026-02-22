@@ -1,7 +1,5 @@
 const RequestDetails = () => {
-  return (
-    <div>RequestDetails</div>
-  )
-}
+  return <div>RequestDetails</div>;
+};
 
-export default RequestDetails
+export default RequestDetails;

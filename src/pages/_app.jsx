@@ -5,9 +5,9 @@ const App = ({ Component, pageProps }) => {
   return (
     <>
       <title>Clan</title>
-      <Component { ...pageProps } />
+      <Component {...pageProps} />
     </>
   );
 };
 
-export default App
+export default App;

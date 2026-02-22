@@ -3,11 +3,7 @@ import Drawer from "@/components/global/Drawer";
 
 const SuccessDrawer = ({ isOpen, onClose }) => {
   return (
-    <Drawer
-      isOpen={isOpen}
-      onClose={onClose}
-      title="Success"
-    >
+    <Drawer isOpen={isOpen} onClose={onClose} title="Success">
       <>
         <div className="pt-42">
           <img src="/assets/images/Young and happy-bro.svg" alt="" />
@@ -18,10 +14,7 @@ const SuccessDrawer = ({ isOpen, onClose }) => {
             </div>
           </p>
         </div>
-        <Button
-          className="text-white mt-5"
-          onClick={onClose}
-        >
+        <Button className="text-white mt-5" onClick={onClose}>
           Close
         </Button>
       </>

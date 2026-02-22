@@ -1,22 +1,27 @@
-import React from 'react';
+import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
-const Loader = ({ text, size = 'md', className = 'bg-primary-600' }) => {
+const Loader = ({ text, size = "md", className = "bg-primary-600" }) => {
   return (
     <>
       <div
-        className={ classNames({ 'small h-4': size === 'sm' }, 'loader-wrap text-center relative inline-flex flex-col items-center') }
+        className={classNames(
+          { "small h-4": size === "sm" },
+          "loader-wrap text-center relative inline-flex flex-col items-center",
+        )}
       >
-        <div className={ classNames('sp sp-3balls', className) }/>
-        { !!text && <div className="mt-8 opacity-70">{ text }</div> }
+        <div className={classNames("sp sp-3balls", className)} />
+        {!!text && <div className="mt-8 opacity-70">{text}</div>}
       </div>
-      <style jsx>{ `
+      <style jsx>{`
         .loader-wrap {
           padding: 0 calc(16px * 2);
         }
 
-        .sp-3balls, .sp-3balls:before, .sp-3balls:after {
+        .sp-3balls,
+        .sp-3balls:before,
+        .sp-3balls:after {
           border-radius: 50%;
           width: 8px;
           height: 8px;
@@ -31,7 +36,8 @@ const Loader = ({ text, size = 'md', className = 'bg-primary-600' }) => {
           animation: spScaleAlpha 1s infinite linear;
         }
 
-        .sp-3balls:before, .sp-3balls:after {
+        .sp-3balls:before,
+        .sp-3balls:after {
           background-color: inherit;
           content: "";
           position: absolute;
@@ -148,15 +154,15 @@ const Loader = ({ text, size = 'md', className = 'bg-primary-600' }) => {
             opacity: 0.25;
           }
         }
-      ` }</style>
+      `}</style>
     </>
   );
 };
 
 Loader.propTypes = {
   text: PropTypes.string,
-  size: PropTypes.oneOf(['sm', 'lg']),
+  size: PropTypes.oneOf(["sm", "lg"]),
   className: PropTypes.string,
-}
+};
 
 export default Loader;

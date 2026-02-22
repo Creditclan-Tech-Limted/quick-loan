@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React, { useEffect, useRef } from "react";
 
 const LaunchEligibilityWidget = ({
@@ -10,14 +10,13 @@ const LaunchEligibilityWidget = ({
   className,
 }) => {
   const widget = useRef();
-  
+
   useEffect(() => {
     const CcEligibilityWidget = window.CcEligibilityWidget;
     widget.current = CcEligibilityWidget.init({
       data: {
         intro: "Happy to fund you",
-        banner:
-          "https://i.ibb.co/pr1BLgq/house-in-hand.jpg",
+        banner: "https://i.ibb.co/pr1BLgq/house-in-hand.jpg",
         request: {
           amount: request.amount,
           tenor: 12,
@@ -38,7 +37,7 @@ const LaunchEligibilityWidget = ({
           show_profile: true,
           show_offers: false,
           show_nok: true,
-          show_attachement: false
+          show_attachement: false,
         },
         extra: {
           rent_id: request.id,

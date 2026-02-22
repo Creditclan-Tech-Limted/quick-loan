@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
 const ClientOnly = ({ children }) => {
   const [show, setShow] = useState(false);
@@ -7,9 +7,7 @@ const ClientOnly = ({ children }) => {
     setShow(true);
   }, []);
 
-  return (
-    <>{ show && children }</>
-  );
+  return <>{show && children}</>;
 };
 
 export default ClientOnly;

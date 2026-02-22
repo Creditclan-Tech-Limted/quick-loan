@@ -1,4 +1,4 @@
-import Document, { Head, Html, Main, NextScript } from 'next/document';
+import Document, { Head, Html, Main, NextScript } from "next/document";
 import React from "react";
 import Script from "next/script";
 
@@ -17,8 +17,13 @@ class MyDocument extends Document {
         <body>
           <Main />
           <NextScript />
-          <a href="#" id="creditclan-widget" className='hidden'>Apply on CreditClan</a>
-          <Script src="https://eligibility.clan.africa/assets/scripts/client.js" strategy="beforeInteractive" />
+          <a href="#" id="creditclan-widget" className="hidden">
+            Apply on CreditClan
+          </a>
+          <Script
+            src="https://eligibility.clan.africa/assets/scripts/client.js"
+            strategy="beforeInteractive"
+          />
         </body>
       </Html>
     );
