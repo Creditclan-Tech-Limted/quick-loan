@@ -221,8 +221,6 @@ const RequestDetailsDrawer = ({
     return value !== undefined && value !== null && `${value}`.trim() !== "";
   };
 
-  console.log(watch());
-
   const isStepComplete = (step) =>
     step.fields.every((field) => isFieldComplete(field));
 

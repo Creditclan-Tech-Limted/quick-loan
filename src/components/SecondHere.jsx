@@ -193,6 +193,7 @@ const SecondHere = ({ referral_code }) => {
       setRequest(res?.data?.data?.request);
       launch();
     } catch (error) {
+      alert(error?.response?.data?.message || "Failed. Please contact support");
       console.log(error);
     }
   };
