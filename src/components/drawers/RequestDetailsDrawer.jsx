@@ -158,13 +158,6 @@ const businessSteps = [
     fields: ["name", "phone", "email"],
     icon: IconUser,
   },
-  // {
-  //   id: "business_other",
-  //   title: "Other Business Info",
-  //   subtitle: "Business address and revenue",
-  //   fields: ["businessAddress", "yearsInOperation", "annualRevenue"],
-  //   icon: IconMapPin,
-  // },
   {
     id: "business_documents",
     title: "Upload CAC Documents",
@@ -209,9 +202,6 @@ const RequestDetailsDrawer = ({
 
   const isFieldComplete = (fieldName) => {
     const value = watch?.(fieldName);
-    // if (value instanceof FileList) {
-    //   return value.length > 0;
-    // }
     if (Array.isArray(value)) {
       return value.length > 0;
     }
@@ -608,70 +598,74 @@ const RequestDetailsDrawer = ({
                   })}
                   error={errors?.businessType?.message}
                 />
-                <Input
-                  type="text"
-                  label="Registration Number"
-                  placeholder="Enter CAC/RC number"
-                  bordered
-                  {...register("registrationNumber", {
-                    required: {
-                      value: true,
-                      message: "Registration Number is required",
-                    },
-                  })}
-                  error={errors?.registrationNumber?.message}
-                />
-                <Input
-                  type="number"
-                  label="Loan Amount (₦)"
-                  placeholder="e.g., 500000"
-                  bordered
-                  {...register("amount", {
-                    required: {
-                      value: true,
-                      message: "Amount is required",
-                    },
-                    min: {
-                      value: 150000,
-                      message: "Minimum Amount is ₦150,000",
-                    },
-                    max: {
-                      value: 1000000,
-                      message: "Maximum amount is ₦1,000,000",
-                    },
-                  })}
-                  error={errors?.amount?.message}
-                />
-                <Input
-                  type="number"
-                  label="Years in Operation"
-                  placeholder="e.g., 5"
-                  bordered
-                  {...register("yearsInOperation", {
-                    required: {
-                      value: true,
-                      message: "Years in operation is required",
-                    },
-                    min: {
-                      value: 1,
-                      message: "Minimum is 1 year",
-                    },
-                  })}
-                  error={errors?.yearsInOperation?.message}
-                />
-                <Input
-                  type="number"
-                  label="Annual Revenue (₦)"
-                  placeholder="e.g., 10000000"
-                  bordered
-                  {...register("annualRevenue", {
-                    required: {
-                      value: true,
-                      message: "Annual revenue is required",
-                    },
-                  })}
-                  error={errors?.annualRevenue?.message}
-                />
+                <div className="flex gap-2">
+                  <Input
+                    type="text"
+                    label="Registration Number"
+                    placeholder="Enter CAC/RC number"
+                    bordered
+                    {...register("registrationNumber", {
+                      required: {
+                        value: true,
+                        message: "Registration Number is required",
+                      },
+                    })}
+                    error={errors?.registrationNumber?.message}
+                  />
+                  <Input
+                    type="number"
+                    label="Annual Revenue (₦)"
+                    placeholder="e.g., 10000000"
+                    bordered
+                    {...register("annualRevenue", {
+                      required: {
+                        value: true,
+                        message: "Annual revenue is required",
+                      },
+                    })}
+                    error={errors?.annualRevenue?.message}
+                  />
+                </div>
+                <div className="flex gap-2">
+                  <Input
+                    type="number"
+                    label="Loan Amount (₦)"
+                    placeholder="e.g., 500000"
+                    bordered
+                    {...register("amount", {
+                      required: {
+                        value: true,
+                        message: "Amount is required",
+                      },
+                      min: {
+                        value: 150000,
+                        message: "Minimum Amount is ₦150,000",
+                      },
+                      max: {
+                        value: 1000000,
+                        message: "Maximum amount is ₦1,000,000",
+                      },
+                    })}
+                    error={errors?.amount?.message}
+                  />
+                  <Input
+                    type="number"
+                    label="Years in Operation"
+                    placeholder="e.g., 5"
+                    bordered
+                    {...register("yearsInOperation", {
+                      required: {
+                        value: true,
+                        message: "Years in operation is required",
+                      },
+                      min: {
+                        value: 1,
+                        message: "Minimum is 1 year",
+                      },
+                    })}
+                    error={errors?.yearsInOperation?.message}
+                  />
+                </div>
                 <Select
                   label="Duration"
                   options={durations}
