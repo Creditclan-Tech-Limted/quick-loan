@@ -1,17 +1,17 @@
-import React, { useState } from "react";
-import useSignupStore from "../../../store/signup.js";
+import React, { useState } from 'react';
+import useSignupStore from '../../../store/signup.js';
 import {
   useUpdateRideUserMutation,
   useUpdateActiveRideUserMutation,
-} from "../../../api/ride.js";
-import Loader from "../Loader.jsx";
-import useEligibility from "../../hooks/use-eligibility.js";
-import { useGetFirstPlanQuery } from "../../../api/ride.js";
+} from '../../../api/ride.js';
+import Loader from '../Loader.jsx';
+import useEligibility from '../../hooks/use-eligibility.js';
+import { useGetFirstPlanQuery } from '../../../api/ride.js';
 
 function CheckEligibility({ onBack, onNext }) {
   const { data, updateData } = useSignupStore((state) => state);
 
-  const [loading, setLoading] = useState("");
+  const [loading, setLoading] = useState('');
 
   const { data: firstPlan, isLoading: isGetFirstPlanLoading } =
     useGetFirstPlanQuery({
@@ -27,8 +27,8 @@ function CheckEligibility({ onBack, onNext }) {
 
   const { launch: launchAnalyse } = useEligibility({
     data: {
-      intro: "Happy to check eligibility for your ride",
-      banner: "https://i.ibb.co/F3HsSx0/eligibility-banner.jpg",
+      intro: 'Happy to check eligibility for your ride',
+      banner: 'https://i.ibb.co/F3HsSx0/eligibility-banner.jpg',
       extra: {
         ride_id: data.ride_data.id,
       },
@@ -37,7 +37,7 @@ function CheckEligibility({ onBack, onNext }) {
         tenor: 1,
         tenor_type: 2,
         // product_id: "30003",
-        product_id: "29822 ",
+        product_id: '29822 ',
       },
       profile: {
         full_name: data.user.name,
@@ -48,7 +48,7 @@ function CheckEligibility({ onBack, onNext }) {
       },
       config: {
         show_bank_account: true,
-        platform: "ride",
+        platform: 'ride',
         show_address: true,
         show_income: true,
         analyze_bank_statement: true,
@@ -58,7 +58,7 @@ function CheckEligibility({ onBack, onNext }) {
       },
     },
     onReady: () => {
-      setLoading("false");
+      setLoading('false');
     },
     onCompleted: (data) => {
       handleEligibilityCompleted({
@@ -68,7 +68,7 @@ function CheckEligibility({ onBack, onNext }) {
     },
   });
   const handleAnalyse = () => {
-    setLoading("true");
+    setLoading('true');
     launchAnalyse();
   };
   const handleEligibilityCompleted = async ({ plan_amount, request_id }) => {
@@ -92,7 +92,7 @@ function CheckEligibility({ onBack, onNext }) {
       });
 
       const payload_two = {
-        status: "active",
+        status: 'active',
         id: res.data.data.id,
       };
       await updateActiveRideUser(payload_two);
@@ -106,20 +106,20 @@ function CheckEligibility({ onBack, onNext }) {
     <>
       <div>
         <button
-          style={{ marginBottom: "0px" }}
+          style={{ marginBottom: '0px' }}
           className="back"
           type="button"
           onClick={onBack}
         >
           <span aria-hidden="true">
             <i
-              style={{ fontSize: "1rem !important" }}
+              style={{ fontSize: '1rem !important' }}
               className="fa-solid fa-angle-left"
             ></i>
           </span>
         </button>
       </div>
-      {loading === "true" &&
+      {loading === 'true' &&
         !isUpdateRideUserLoading &&
         !isUpdateActiveRideUserLoading && (
           <>
@@ -127,23 +127,23 @@ function CheckEligibility({ onBack, onNext }) {
             <br />
             <br />
             <br />
-            <div className="d-flex flex-column justify-content-center align-items-center text-center py-5">
+            <div className="d-flex flex-column justify-content-center align-items-center py-5 text-center">
               <div className="spinner-grow text-dark" role="status">
-                <span className="sr-only text-cc-dark">Loading...</span>
+                <span className="text-cc-dark sr-only">Loading...</span>
               </div>
-              <div className="font-17 mt-4 text-cc-dark">Please wait..</div>
+              <div className="font-17 text-cc-dark mt-4">Please wait..</div>
             </div>
           </>
         )}
 
-      {loading !== "true" &&
+      {loading !== 'true' &&
         !isUpdateRideUserLoading &&
         !isUpdateActiveRideUserLoading &&
-        data?.ride_data?.amount !== "3000" && (
+        data?.ride_data?.amount !== '3000' && (
           <>
             <div className="pt-70 pb-2">
               <img
-                style={{ width: "250px" }}
+                style={{ width: '250px' }}
                 className="mb-4"
                 src="https://shop.clan.africa/img/time-lady.7a7ded04.svg"
                 alt=""
@@ -161,7 +161,7 @@ function CheckEligibility({ onBack, onNext }) {
             </div>
             <button
               onClick={handleAnalyse}
-              className="btn btn-blue mr-4 font-17"
+              className="btn btn-blue font-17 mr-4"
             >
               Continue to eligibility
             </button>
@@ -169,8 +169,8 @@ function CheckEligibility({ onBack, onNext }) {
         )}
       {!loading && isUpdateRideUserLoading && isUpdateActiveRideUserLoading && (
         <Loader
-          header={"Creating your account"}
-          subText={"Please wait while we set you up"}
+          header={'Creating your account'}
+          subText={'Please wait while we set you up'}
         />
       )}
     </>

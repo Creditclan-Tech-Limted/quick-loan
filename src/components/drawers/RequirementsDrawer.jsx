@@ -1,6 +1,6 @@
-import Button from "@/components/global/Button";
-import Drawer from "@/components/global/Drawer";
-import { IconBriefcase, IconChevronRight, IconUser } from "@tabler/icons-react";
+import Button from '@/components/global/Button';
+import Drawer from '@/components/global/Drawer';
+import { IconBriefcase, IconChevronRight, IconUser } from '@tabler/icons-react';
 
 const RequirementsDrawer = ({
   isOpen,
@@ -9,8 +9,8 @@ const RequirementsDrawer = ({
   loanType,
   onLoanTypeChange,
 }) => {
-  const isPersonal = loanType === "personal";
-  const isBusiness = loanType === "business";
+  const isPersonal = loanType === 'personal';
+  const isBusiness = loanType === 'business';
 
   return (
     <Drawer isOpen={isOpen} onClose={onClose} title="Choose Loan Type">
@@ -22,31 +22,31 @@ const RequirementsDrawer = ({
           </p>
         </div>
 
-        <div className="grid gap-5 grid-cols-1 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
           <button
             type="button"
-            onClick={() => onLoanTypeChange("personal")}
-            className={`text-left border rounded-2xl p-5 transition relative overflow-hidden ${
+            onClick={() => onLoanTypeChange('personal')}
+            className={`relative overflow-hidden rounded-2xl border p-5 text-left transition ${
               isPersonal
-                ? "border-blue-500 bg-gradient-to-br from-blue-50 via-sky-50 to-indigo-50 shadow-lg"
-                : "border-gray-200 hover:border-blue-300 hover:shadow-md"
+                ? 'border-blue-500 bg-gradient-to-br from-blue-50 via-sky-50 to-indigo-50 shadow-lg'
+                : 'border-gray-200 hover:border-blue-300 hover:shadow-md'
             }`}
           >
             <div className="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-blue-100 opacity-60" />
-            <div className="absolute -left-6 -bottom-10 h-20 w-20 rounded-full bg-sky-100 opacity-60" />
+            <div className="absolute -bottom-10 -left-6 h-20 w-20 rounded-full bg-sky-100 opacity-60" />
             <div className="relative flex items-center gap-3">
               <span
                 className={`flex h-12 w-12 items-center justify-center rounded-2xl ${
                   isPersonal
-                    ? "bg-blue-600 text-white"
-                    : "bg-blue-100 text-blue-600"
+                    ? 'bg-blue-600 text-white'
+                    : 'bg-blue-100 text-blue-600'
                 }`}
               >
                 <IconUser size={22} />
               </span>
               <div>
                 <p className="text-lg font-semibold">Personal Loan</p>
-                <p className="text-sm text-gray-600 mt-1">
+                <p className="mt-1 text-sm text-gray-600">
                   For salary earners and personal needs.
                 </p>
               </div>
@@ -59,28 +59,28 @@ const RequirementsDrawer = ({
 
           <button
             type="button"
-            onClick={() => onLoanTypeChange("business")}
-            className={`text-left border rounded-2xl p-5 transition relative overflow-hidden ${
+            onClick={() => onLoanTypeChange('business')}
+            className={`relative overflow-hidden rounded-2xl border p-5 text-left transition ${
               isBusiness
-                ? "border-emerald-500 bg-gradient-to-br from-emerald-50 via-teal-50 to-green-50 shadow-lg"
-                : "border-gray-200 hover:border-emerald-300 hover:shadow-md"
+                ? 'border-emerald-500 bg-gradient-to-br from-emerald-50 via-teal-50 to-green-50 shadow-lg'
+                : 'border-gray-200 hover:border-emerald-300 hover:shadow-md'
             }`}
           >
             <div className="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-emerald-100 opacity-60" />
-            <div className="absolute -left-6 -bottom-10 h-20 w-20 rounded-full bg-teal-100 opacity-60" />
+            <div className="absolute -bottom-10 -left-6 h-20 w-20 rounded-full bg-teal-100 opacity-60" />
             <div className="relative flex items-center gap-3">
               <span
                 className={`flex h-12 w-12 items-center justify-center rounded-2xl ${
                   isBusiness
-                    ? "bg-emerald-600 text-white"
-                    : "bg-emerald-100 text-emerald-600"
+                    ? 'bg-emerald-600 text-white'
+                    : 'bg-emerald-100 text-emerald-600'
                 }`}
               >
                 <IconBriefcase size={22} />
               </span>
               <div>
                 <p className="text-lg font-semibold">Business Loan</p>
-                <p className="text-sm text-gray-600 mt-1">
+                <p className="mt-1 text-sm text-gray-600">
                   For business expansion and operations.
                 </p>
               </div>
@@ -93,7 +93,7 @@ const RequirementsDrawer = ({
         </div>
 
         <Button
-          className={`text-white ${loanType ? "bg-blue-600" : "bg-gray-300"}`}
+          className={`text-white ${loanType ? 'bg-blue-600' : 'bg-gray-300'}`}
           onClick={onContinue}
           disabled={!loanType}
           rightIcon={<IconChevronRight size={16} />}

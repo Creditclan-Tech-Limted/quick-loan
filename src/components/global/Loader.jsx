@@ -1,17 +1,17 @@
-import React from "react";
-import PropTypes from "prop-types";
-import classNames from "classnames";
+import React from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
-const Loader = ({ text, size = "md", className = "bg-primary-600" }) => {
+const Loader = ({ text, size = 'md', className = 'bg-primary-600' }) => {
   return (
     <>
       <div
         className={classNames(
-          { "small h-4": size === "sm" },
-          "loader-wrap text-center relative inline-flex flex-col items-center",
+          { 'small h-4': size === 'sm' },
+          'loader-wrap relative inline-flex flex-col items-center text-center'
         )}
       >
-        <div className={classNames("sp sp-3balls", className)} />
+        <div className={classNames('sp sp-3balls', className)} />
         {!!text && <div className="mt-8 opacity-70">{text}</div>}
       </div>
       <style jsx>{`
@@ -39,7 +39,7 @@ const Loader = ({ text, size = "md", className = "bg-primary-600" }) => {
         .sp-3balls:before,
         .sp-3balls:after {
           background-color: inherit;
-          content: "";
+          content: '';
           position: absolute;
           opacity: 0.25;
         }
@@ -161,7 +161,7 @@ const Loader = ({ text, size = "md", className = "bg-primary-600" }) => {
 
 Loader.propTypes = {
   text: PropTypes.string,
-  size: PropTypes.oneOf(["sm", "lg"]),
+  size: PropTypes.oneOf(['sm', 'lg']),
   className: PropTypes.string,
 };
 

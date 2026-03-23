@@ -1,6 +1,6 @@
-import Document, { Head, Html, Main, NextScript } from "next/document";
-import React from "react";
-import Script from "next/script";
+import Document, { Head, Html, Main, NextScript } from 'next/document';
+import React from 'react';
+import Script from 'next/script';
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
