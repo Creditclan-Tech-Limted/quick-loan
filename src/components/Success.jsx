@@ -1,5 +1,5 @@
-import React from "react";
-import Drawer from "./global/Drawer";
+import React from 'react';
+import Drawer from './global/Drawer';
 
 const Success = () => {
   return (
@@ -8,9 +8,9 @@ const Success = () => {
         <div className="pt-70">
           <img
             style={{
-              width: "350px",
-              marginLeft: "-5rem",
-              marginBottom: "-3rem",
+              width: '350px',
+              marginLeft: '-5rem',
+              marginBottom: '-3rem',
             }}
             src="/assets/images/Young and happy-bro.svg"
             alt=""

@@ -1,16 +1,16 @@
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import useEligibility from "@/hooks/use-eligibility";
-import axios from "axios";
-import { differenceInMonths } from "date-fns";
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import useEligibility from '@/hooks/use-eligibility';
+import axios from 'axios';
+import { differenceInMonths } from 'date-fns';
 
 // Import drawer components
-import RequirementsDrawer from "./drawers/RequirementsDrawer";
-import RequestExistDrawer from "./drawers/RequestExistDrawer";
-import RequestDetailsDrawer from "./drawers/RequestDetailsDrawer";
-import SuccessDrawer from "./drawers/SuccessDrawer";
-import Button from "./global/Button";
-import { IconChevronRight } from "@tabler/icons-react";
+import RequirementsDrawer from './drawers/RequirementsDrawer';
+import RequestExistDrawer from './drawers/RequestExistDrawer';
+import RequestDetailsDrawer from './drawers/RequestDetailsDrawer';
+import SuccessDrawer from './drawers/SuccessDrawer';
+import Button from './global/Button';
+import { IconChevronRight } from '@tabler/icons-react';
 
 const SecondHere = ({ referral_code }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -23,20 +23,20 @@ const SecondHere = ({ referral_code }) => {
     watch,
     reset,
   } = useForm();
-  const [views, setViews] = useState("requirements");
+  const [views, setViews] = useState('requirements');
   const [_differenceInMonths, setDifferenceInMonths] = useState(0);
   const [loan, setLoan] = useState();
-  const [loanType, setLoanType] = useState("");
+  const [loanType, setLoanType] = useState('');
 
   const { launch } = useEligibility({
     data: {
-      banner: "https://i.ibb.co/F3HsSx0/eligibility-banner.jpg",
+      banner: 'https://i.ibb.co/F3HsSx0/eligibility-banner.jpg',
       referral_code,
       request: {
         amount: watch().amount,
         tenor: watch().duration,
         tenor_type: 6,
-        product_id: "30025",
+        product_id: '30025',
         home_address: watch().address,
       },
       profile: {
@@ -55,7 +55,7 @@ const SecondHere = ({ referral_code }) => {
         start_year: watch().startYear,
         company_name: watch().companyName,
         official_email: watch().workEmail,
-        work_email_verified: "",
+        work_email_verified: '',
       },
       config: {
         show_bank_account: true,
@@ -68,7 +68,7 @@ const SecondHere = ({ referral_code }) => {
         verify_work_email: false,
         show_work_information: true,
         show_attachments: true,
-        attachments_list: ["evidence_of_ownership"],
+        attachments_list: ['evidence_of_ownership'],
         show_address: true,
         show_offers: false,
         show_nok: false,
@@ -78,26 +78,26 @@ const SecondHere = ({ referral_code }) => {
     },
     onReady: () => {
       let eligibility_link = document.getElementById(
-        "data-collection-widget",
+        'data-collection-widget'
       )?.src;
       axios.post(
         `https://sellbackend.creditclan.com/merchantclan/public/index.php/api/personal/loans/${request?.id}/offer`,
-        { eligibility_link },
+        { eligibility_link }
       );
       setIsLoading(false);
     },
     onRequest: (data) => {
       axios.post(
         `https://sellbackend.creditclan.com/merchantclan/public/index.php/api/personal/loans/${request?.id}/offer`,
-        { creditclan_request_id: data?.request_id },
+        { creditclan_request_id: data?.request_id }
       );
     },
     onCompleted: (data) => {
       axios.post(
         `https://sellbackend.creditclan.com/merchantclan/public/index.php/api/personal/loans/${request?.id}/offer`,
-        { creditclan_request_id: data?.request_id, offer: watch().amount },
+        { creditclan_request_id: data?.request_id, offer: watch().amount }
       );
-      setViews("success");
+      setViews('success');
     },
   });
 
@@ -114,25 +114,25 @@ const SecondHere = ({ referral_code }) => {
   const gertLoanDetails = async (request_id) => {
     try {
       const { data } = await axios.post(
-        "https://mobile.creditclan.com/api/v3/customer/check/details",
+        'https://mobile.creditclan.com/api/v3/customer/check/details',
         { email: watch().email, phone: watch().phone },
         {
           headers: {
-            "x-api-key":
-              "WE4mwadGYqf0jv1ZkdFv1LNPMpZHuuzoDDiJpQQqaes3PzB7xlYhe8oHbxm6J228",
+            'x-api-key':
+              'WE4mwadGYqf0jv1ZkdFv1LNPMpZHuuzoDDiJpQQqaes3PzB7xlYhe8oHbxm6J228',
           },
-        },
+        }
       );
       const { token } = data;
       const res = await axios.post(
-        "https://mobile.creditclan.com/api/v3/loan/details",
+        'https://mobile.creditclan.com/api/v3/loan/details',
         { token, request_id },
         {
           headers: {
-            "x-api-key":
-              "WE4mwadGYqf0jv1ZkdFv1LNPMpZHuuzoDDiJpQQqaes3PzB7xlYhe8oHbxm6J228",
+            'x-api-key':
+              'WE4mwadGYqf0jv1ZkdFv1LNPMpZHuuzoDDiJpQQqaes3PzB7xlYhe8oHbxm6J228',
           },
-        },
+        }
       );
       setLoan(res.data.data);
       return res.data.data;
@@ -158,7 +158,7 @@ const SecondHere = ({ referral_code }) => {
           assetDescription: watch().assetDescription,
           assetValue: watch().assetValue,
           address: watch().personalAddress,
-        },
+        }
       );
       if (!res?.data?.status) {
         const currentDate = new Date();
@@ -166,7 +166,7 @@ const SecondHere = ({ referral_code }) => {
         const monthsDifference = differenceInMonths(targetDate, currentDate);
         if (monthsDifference > 0) {
           await axios.delete(
-            `https://sellbackend.creditclan.com/merchantclan/public/index.php/api/personal/loans/${req?.data?.data?.id}/cancel`,
+            `https://sellbackend.creditclan.com/merchantclan/public/index.php/api/personal/loans/${req?.data?.data?.id}/cancel`
           );
           const resi = await axios.post(
             `https://sellbackend.creditclan.com/merchantclan/public/index.php/api/personal/loan`,
@@ -178,7 +178,7 @@ const SecondHere = ({ referral_code }) => {
               agent_phone: referral_code,
               phone: watch().phone,
               address: watch().address,
-            },
+            }
           );
           setRequest(resi?.data?.data?.request);
           launch();
@@ -186,14 +186,14 @@ const SecondHere = ({ referral_code }) => {
         }
         await gertLoanDetails(res?.data?.data?.creditclan_request_id);
         setDifferenceInMonths(monthsDifference);
-        setViews("request_exist");
+        setViews('request_exist');
         setRequest(res?.data?.data);
         return;
       }
       setRequest(res?.data?.data?.request);
       launch();
     } catch (error) {
-      alert(error?.response?.data?.message || "Failed. Please contact support");
+      alert(error?.response?.data?.message || 'Failed. Please contact support');
       console.log(error);
     }
   };
@@ -202,9 +202,9 @@ const SecondHere = ({ referral_code }) => {
     try {
       setIsLoading(true);
       await axios.delete(
-        `https://sellbackend.creditclan.com/merchantclan/public/index.php/api/personal/loans/${request?.id}/cancel`,
+        `https://sellbackend.creditclan.com/merchantclan/public/index.php/api/personal/loans/${request?.id}/cancel`
       );
-      setViews("request_details");
+      setViews('request_details');
       setIsLoading(false);
     } catch (error) {
       console.log(error);
@@ -213,7 +213,7 @@ const SecondHere = ({ referral_code }) => {
 
   return (
     <div className="hero-background">
-      <div className="flex items-center justify-center w-full absolute bottom-4 sm:bottom-20 px-4">
+      <div className="absolute bottom-4 flex w-full items-center justify-center px-4 sm:bottom-20">
         <Button
           color="white"
           onClick={() => setOpenDrawer(true)}
@@ -227,15 +227,15 @@ const SecondHere = ({ referral_code }) => {
 
       <>
         <RequirementsDrawer
-          isOpen={openDrawer && views === "requirements"}
+          isOpen={openDrawer && views === 'requirements'}
           onClose={() => setOpenDrawer(false)}
-          onContinue={() => setViews("request_details")}
+          onContinue={() => setViews('request_details')}
           loanType={loanType}
           onLoanTypeChange={setLoanType}
         />
 
         <RequestExistDrawer
-          isOpen={openDrawer && views === "request_exist"}
+          isOpen={openDrawer && views === 'request_exist'}
           onClose={() => setOpenDrawer(false)}
           request={request}
           loan={loan}
@@ -245,7 +245,7 @@ const SecondHere = ({ referral_code }) => {
         />
 
         <RequestDetailsDrawer
-          isOpen={openDrawer && views === "request_details"}
+          isOpen={openDrawer && views === 'request_details'}
           onClose={() => setOpenDrawer(false)}
           onSubmit={onSubmit}
           register={register}
@@ -257,7 +257,7 @@ const SecondHere = ({ referral_code }) => {
         />
 
         <SuccessDrawer
-          isOpen={openDrawer && views === "success"}
+          isOpen={openDrawer && views === 'success'}
           onClose={() => setOpenDrawer(false)}
         />
       </>

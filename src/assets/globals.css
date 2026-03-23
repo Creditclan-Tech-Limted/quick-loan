@@ -20,7 +20,7 @@ body {
 .hero-background {
   background-image:
     linear-gradient(rgba(38, 25, 51, 0.6), rgba(25, 25, 51, 0.6)),
-    url("/assets/images/portrait.png");
+    url('/assets/images/portrait.png');
 }
 
 /* Tablet and desktop - larger screens */
@@ -28,7 +28,7 @@ body {
   .hero-background {
     background-image:
       linear-gradient(rgba(38, 25, 51, 0.6), rgba(25, 25, 51, 0.6)),
-      url("/assets/images/hero.png");
+      url('/assets/images/hero.png');
   }
 }
 
@@ -36,13 +36,13 @@ body {
 .bg-responsiveHero {
   background-image:
     linear-gradient(rgba(38, 25, 51, 0.6), rgba(25, 25, 51, 0.6)),
-    url("/assets/images/heroo.png");
+    url('/assets/images/heroo.png');
   width: 100%;
 }
 
 .bg-responsiveHeroMobile {
   background-image:
     linear-gradient(rgba(38, 25, 51, 0.6), rgba(25, 25, 51, 0.6)),
-    url("/assets/images/portrait.png");
+    url('/assets/images/portrait.png');
   width: 100%;
 }
