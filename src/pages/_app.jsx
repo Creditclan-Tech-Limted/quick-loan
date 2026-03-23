@@ -1,5 +1,5 @@
-import React from "react";
-import "@/assets/globals.css";
+import React from 'react';
+import '@/assets/globals.css';
 
 const App = ({ Component, pageProps }) => {
   return (

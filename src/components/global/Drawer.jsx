@@ -1,35 +1,35 @@
-import { useEffect } from "react";
-import classNames from "classnames";
-import Backdrop from "./Backdrop.jsx";
-import { AnimatePresence, motion } from "framer-motion";
-import { useMediaQuery } from "react-responsive";
-import { IconX } from "@tabler/icons-react";
-import Button from "./Button.jsx";
+import { useEffect } from 'react';
+import classNames from 'classnames';
+import Backdrop from './Backdrop.jsx';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useMediaQuery } from 'react-responsive';
+import { IconX } from '@tabler/icons-react';
+import Button from './Button.jsx';
 
 const Drawer = ({ isOpen, title, padding = true, onClose, children }) => {
   const isMobile = useMediaQuery({ maxWidth: 640 });
 
   useEffect(() => {
-    if (isOpen) document.body.style.overflow = "hidden";
-    else document.body.style.overflowY = "auto";
+    if (isOpen) document.body.style.overflow = 'hidden';
+    else document.body.style.overflowY = 'auto';
   }, [isOpen]);
 
   const variants = {
     hidden: {
-      [isMobile ? "y" : "x"]: "100%",
+      [isMobile ? 'y' : 'x']: '100%',
       opacity: 0,
     },
     visible: {
-      [isMobile ? "y" : "x"]: "0",
+      [isMobile ? 'y' : 'x']: '0',
       opacity: 1,
       transition: {
-        type: "spring",
+        type: 'spring',
         damping: 30,
         stiffness: 300,
       },
     },
     exit: {
-      [isMobile ? "y" : "x"]: "100%",
+      [isMobile ? 'y' : 'x']: '100%',
       opacity: 0,
     },
   };
@@ -45,19 +45,19 @@ const Drawer = ({ isOpen, title, padding = true, onClose, children }) => {
             animate="visible"
             exit="exit"
             className={classNames(
-              "fixed right-0 bottom-0 sm:top-0 w-full md:w-[900px] overflow-hidden",
-              "rounded-t-3xl md:rounded-r-3xl md:rounded-l-3xl md:p-4",
+              'fixed bottom-0 right-0 w-full overflow-hidden sm:top-0 md:w-[900px]',
+              'rounded-t-3xl md:rounded-l-3xl md:rounded-r-3xl md:p-4'
             )}
           >
             <div
               className={classNames(
-                "relative inset-x-0 bottom-0 bg-white h-min max-h-full sm:h-full overflow-x-hidden overflow-y-auto",
-                "rounded-t-3xl md:rounded-r-3xl md:rounded-l-3xl flex flex-col",
-                { "p-8 md:p-10": padding },
+                'relative inset-x-0 bottom-0 h-min max-h-full overflow-y-auto overflow-x-hidden bg-white sm:h-full',
+                'flex flex-col rounded-t-3xl md:rounded-l-3xl md:rounded-r-3xl',
+                { 'p-8 md:p-10': padding }
               )}
             >
               {!!title && (
-                <div className="flex items-center justify-between mb-10">
+                <div className="mb-10 flex items-center justify-between">
                   <h3 className="text-xl font-semibold">{title}</h3>
                   <Button
                     onClick={onClose}
@@ -66,8 +66,8 @@ const Drawer = ({ isOpen, title, padding = true, onClose, children }) => {
                     color="red"
                     variant="outlined"
                   >
-                    {" "}
-                    <IconX />{" "}
+                    {' '}
+                    <IconX />{' '}
                   </Button>
                 </div>
               )}

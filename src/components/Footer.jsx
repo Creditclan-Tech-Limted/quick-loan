@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from 'next/link';
 import {
   IconBrandFacebook,
   IconBrandInstagram,
@@ -7,34 +7,34 @@ import {
   IconMapPin,
   IconPhone,
   IconPhoneCall,
-} from "@tabler/icons-react";
+} from '@tabler/icons-react';
 
 const Footer = () => {
-  const mode = "light";
+  const mode = 'light';
   return (
     <>
       <footer className="md:bg-[#F1F1F8]">
-        <div className="container max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-12 pt-32 pb-24 space-y-10 md:space-y-0">
+        <div className="container mx-auto max-w-7xl">
+          <div className="grid space-y-10 pb-24 pt-32 md:grid-cols-12 md:space-y-0">
             <div className="md:col-span-3">
               <Link href="/" className="flex items-center">
                 {mode.dark ? (
                   <img
                     src="/assets/images/ileyah-logo.png"
-                    className="h-8 mr-3"
+                    className="mr-3 h-8"
                     alt="Ileya Logo"
                   />
                 ) : (
                   <img
                     src="https://clan.africa/images/clan.png"
-                    className="h-8 mr-3"
+                    className="mr-3 h-8"
                     alt="Ileya Logo"
                   />
                 )}
               </Link>
             </div>
             <div className="md:col-span-3">
-              <h5 className="font-semibold mb-5">
+              <h5 className="mb-5 font-semibold">
                 <Link href="#" className="flex items-center">
                   Product
                 </Link>
@@ -43,7 +43,7 @@ const Footer = () => {
                 <div>
                   <Link
                     href="#"
-                    className={`flex items-center ${mode.dark ? "md:text-gray-500" : "md:text-black"}`}
+                    className={`flex items-center ${mode.dark ? 'md:text-gray-500' : 'md:text-black'}`}
                   >
                     Get Cash
                   </Link>
@@ -51,7 +51,7 @@ const Footer = () => {
                 <div>
                   <Link
                     href="#"
-                    className={`flex items-center ${mode.dark ? "md:text-gray-500" : "md:text-black"}`}
+                    className={`flex items-center ${mode.dark ? 'md:text-gray-500' : 'md:text-black'}`}
                   >
                     Shop Now
                   </Link>
@@ -59,7 +59,7 @@ const Footer = () => {
                 <div>
                   <Link
                     href="#"
-                    className={`flex items-center ${mode.dark ? "md:text-gray-500" : "md:text-black"}`}
+                    className={`flex items-center ${mode.dark ? 'md:text-gray-500' : 'md:text-black'}`}
                   >
                     Power Now
                   </Link>
@@ -75,7 +75,7 @@ const Footer = () => {
               </div>
             </div>
             <div className="md:col-span-3">
-              <h5 className="font-semibold mb-5">
+              <h5 className="mb-5 font-semibold">
                 <Link href="#" className="flex items-center">
                   Quick Links
                 </Link>
@@ -84,7 +84,7 @@ const Footer = () => {
                 <div>
                   <Link
                     href="#"
-                    className={`flex items-center ${mode.dark ? "md:text-gray-500" : "md:text-black"}`}
+                    className={`flex items-center ${mode.dark ? 'md:text-gray-500' : 'md:text-black'}`}
                   >
                     Terms & conditions
                   </Link>
@@ -92,7 +92,7 @@ const Footer = () => {
                 <div>
                   <Link
                     href="#"
-                    className={`flex items-center ${mode.dark ? "md:text-gray-500" : "md:text-black"}`}
+                    className={`flex items-center ${mode.dark ? 'md:text-gray-500' : 'md:text-black'}`}
                   >
                     Pivacy Policy
                   </Link>
@@ -100,7 +100,7 @@ const Footer = () => {
                 <div>
                   <Link
                     href="#"
-                    className={`flex items-center ${mode.dark ? "md:text-gray-500" : "md:text-black"}`}
+                    className={`flex items-center ${mode.dark ? 'md:text-gray-500' : 'md:text-black'}`}
                   >
                     Contact us
                   </Link>
@@ -108,7 +108,7 @@ const Footer = () => {
               </div>
             </div>
             <div className="md:col-span-3">
-              <h5 className="font-semibold mb-5">
+              <h5 className="mb-5 font-semibold">
                 <Link href="#" className="flex items-center">
                   Contact us
                 </Link>
@@ -117,7 +117,7 @@ const Footer = () => {
                 <div>
                   <Link
                     href="#"
-                    className={`flex items-center ${mode.dark ? "md:text-gray-500" : "md:text-black"}`}
+                    className={`flex items-center ${mode.dark ? 'md:text-gray-500' : 'md:text-black'}`}
                   >
                     <IconPhoneCall size={20} className="mr-5" />
                     +234 9155 577 731
@@ -126,7 +126,7 @@ const Footer = () => {
                 <div>
                   <Link
                     href="#"
-                    className={`flex items-center ${mode.dark ? "md:text-gray-500" : "md:text-black"}`}
+                    className={`flex items-center ${mode.dark ? 'md:text-gray-500' : 'md:text-black'}`}
                   >
                     <IconMail size={20} className="mr-5" />
                     support@clan.africa
@@ -135,7 +135,7 @@ const Footer = () => {
                 <div>
                   <Link
                     href="#"
-                    className={`flex items-center ${mode.dark ? "md:text-gray-500" : "md:text-black"}`}
+                    className={`flex items-center ${mode.dark ? 'md:text-gray-500' : 'md:text-black'}`}
                   >
                     <IconMapPin size={20} className="mr-5" />
                     77, Samuel Adedoyin street, Victoria Island, Lagos.
@@ -147,16 +147,16 @@ const Footer = () => {
         </div>
         <hr className="border-gray-200" />
         <div className="py-8">
-          <div className="container max-w-7xl mx-auto flex-row sm:flex justify-between items-center">
+          <div className="container mx-auto max-w-7xl flex-row items-center justify-between sm:flex">
             <div className="text-gray-500">
               © 2023 |
               <Link href="#" className="hover:underline">
-                {" "}
+                {' '}
                 Clan
               </Link>
               . All Rights Reserved.
             </div>
-            <div className="flex mt-4 space-x-6 sm:mt-0">
+            <div className="mt-4 flex space-x-6 sm:mt-0">
               <Link
                 href="#"
                 target="_blank"

@@ -1,5 +1,5 @@
-import Button from "@/components/global/Button";
-import Drawer from "@/components/global/Drawer";
+import Button from '@/components/global/Button';
+import Drawer from '@/components/global/Drawer';
 
 const SuccessDrawer = ({ isOpen, onClose }) => {
   return (
@@ -7,14 +7,14 @@ const SuccessDrawer = ({ isOpen, onClose }) => {
       <>
         <div className="pt-42">
           <img src="/assets/images/Young and happy-bro.svg" alt="" />
-          <p className="text-4xl font-bold text-center">
+          <p className="text-center text-4xl font-bold">
             Congratulations!!! <br />
-            <div className="text-2xl mt-3 font-normal">
+            <div className="mt-3 text-2xl font-normal">
               Application completed. Our team will review your submission
             </div>
           </p>
         </div>
-        <Button className="text-white mt-5" onClick={onClose}>
+        <Button className="mt-5 text-white" onClick={onClose}>
           Close
         </Button>
       </>

@@ -1,8 +1,8 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef } from 'react';
 
 let CcEligibilityWidget;
 
-if (typeof window !== "undefined") {
+if (typeof window !== 'undefined') {
   // Client-side-only code
   CcEligibilityWidget = { ...window.CcEligibilityWidget };
 }
