@@ -1,5 +1,5 @@
-"use client";
-import React, { useEffect, useRef } from "react";
+'use client';
+import React, { useEffect, useRef } from 'react';
 
 const LaunchEligibilityWidget = ({
   children,
@@ -15,8 +15,8 @@ const LaunchEligibilityWidget = ({
     const CcEligibilityWidget = window.CcEligibilityWidget;
     widget.current = CcEligibilityWidget.init({
       data: {
-        intro: "Happy to fund you",
-        banner: "https://i.ibb.co/pr1BLgq/house-in-hand.jpg",
+        intro: 'Happy to fund you',
+        banner: 'https://i.ibb.co/pr1BLgq/house-in-hand.jpg',
         request: {
           amount: request.amount,
           tenor: 12,

@@ -1,5 +1,5 @@
-import Button from "@/components/global/Button";
-import Drawer from "@/components/global/Drawer";
+import Button from '@/components/global/Button';
+import Drawer from '@/components/global/Drawer';
 
 const RequestExistDrawer = ({
   isOpen,
@@ -15,17 +15,17 @@ const RequestExistDrawer = ({
       <>
         {!request?.eligibility_link && !request?.creditclan_request_id && (
           <p>
-            {" "}
+            {' '}
             You have an on-going request. <br /> Click on <b>Continue</b> to
-            proceed with your application.{" "}
+            proceed with your application.{' '}
           </p>
         )}
         {request?.eligibility_link && !request?.creditclan_request_id && (
           <>
             <p>
-              {" "}
+              {' '}
               You have an on-going request. <br /> Click on <b>Continue</b> to
-              proceed with your application.{" "}
+              proceed with your application.{' '}
             </p>
             <p>
               Contact us on our support lines if you require any assistance.
@@ -40,7 +40,7 @@ const RequestExistDrawer = ({
           </p>
         )}
 
-        <div className="border border-black space-y-4 p-3 rounded mt-5">
+        <div className="mt-5 space-y-4 rounded border border-black p-3">
           <div className="flex justify-between">
             <p>Name:</p>
             <p>{request?.full_name}</p>
@@ -66,7 +66,7 @@ const RequestExistDrawer = ({
         {!request?.eligibility_link && !request?.creditclan_request_id && (
           <>
             <Button
-              className="mt-10 mb-5 bg-blue-600 text-white"
+              className="mb-5 mt-10 bg-blue-600 text-white"
               onClick={launch}
               loading={isLoading}
             >
@@ -74,14 +74,14 @@ const RequestExistDrawer = ({
             </Button>
             <p
               onClick={cancelLoan}
-              className="underline text-red-500 text-center cursor-pointer"
+              className="cursor-pointer text-center text-red-500 underline"
             >
               Cancel this request
             </p>
           </>
         )}
 
-        {request && loan && loan.loan.stage !== "completed" && (
+        {request && loan && loan.loan.stage !== 'completed' && (
           <Button
             className="mt-10 bg-blue-600 text-white"
             onClick={launch}
